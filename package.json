@@ -1,0 +1,21 @@
+{
+  "name": "fluent-assert",
+  "version": "0.0.1",
+  "description": "Fluent assertions for javascript types.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test",
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- -u exports -R spec test/**/*-spec.js"
+  },
+  "keywords": [
+    "assert",
+    "fluent",
+    "fluent-assert"
+  ],
+  "author": "Zack Smith",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5"
+  }
+}
