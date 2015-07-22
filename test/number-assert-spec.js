@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var NumberAssert = require('../src/NumberAssert');
+var NumberAssert = require('../src/number-assert');
 
 describe('NumberAssert', function() {
   describe('#min', function() {
@@ -124,6 +124,29 @@ describe('NumberAssert', function() {
       expect(function() {
         na.equal(10)
       }).to.not.throw(/equal/);
+    });
+  });
+
+  describe('#in', function() {
+    it('throws an error when parameter values is not an array', function() {
+      var na = new NumberAssert('test', 0);
+      expect(function() {
+        na.in([1, 2, 3, 4, 5]);
+      }).to.throw(/in/);
+    });
+
+    it('throws an error when value is not present in parameter values', function() {
+      var na = new NumberAssert('test', 0);
+      expect(function() {
+        na.in([1, 2, 3, 4, 5]);
+      }).to.throw(/in/);
+    });
+
+    it('does not throw an error when value is present in parameter values', function() {
+      var na = new NumberAssert('test', 0);
+      expect(function() {
+        na.in([0, 1, 2, 3, 4, 5]);
+      }).to.not.throw(/in/);
     });
   });
 });

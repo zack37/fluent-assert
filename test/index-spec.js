@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var assert = require('../src/index');
-var node_assert = require('assert');
-var NumberAssert = require('../src/NumberAssert');
+var NumberAssert = require('../src/number-assert');
+var StringAssert = require('../src/string-assert');
 
 describe('Assert', function() {
   describe('Number', function() {
@@ -32,7 +32,7 @@ describe('Assert', function() {
 
     it('returns a string validator', function() {
       var validator = assert.string('test', 'test');
-      //expect(validator).to.be.an.instanceof(StringAssert);
+      expect(validator).to.be.an.instanceof(StringAssert);
     });
 
     it('throws when creating a string validator for not a string', function() {
@@ -48,11 +48,6 @@ describe('Assert', function() {
         assert.bool('test', false);
       }).to.not.throw;
     });
-
-    it('returns a boolean validator', function() {
-      var validator = assert.bool('test', true);
-      //expect(validator).to.be.an.instanceof(BooleanValidator);
-    })
 
     it('throws when creating a boolean validator for not a boolean', function() {
       expect(function() {
