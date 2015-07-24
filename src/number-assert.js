@@ -2,6 +2,8 @@ var AssertionError = require('assert').AssertionError;
 var common = require('./common-assert');
 
 function NumberAssert(name, value) {
+  common.typeCheck(name, value, 'number');
+
   Object.defineProperties(this, {
     name: {enumerable: true, configurable: false, writable: false, value: name},
     value: {enumerable: true, configurable: false, writable: false, value: value}

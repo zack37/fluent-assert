@@ -24,6 +24,4 @@ describe('StringAssert', function() {
       }).to.not.throw(/match/);
     });
   });
-
-
 });

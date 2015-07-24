@@ -4,12 +4,10 @@ var NumberAssert = require('./number-assert');
 var StringAssert = require('./string-assert');
 
 function number(name, value) {
-  common.typeCheck(name, value, 'number');
   return new NumberAssert(name, value);
 }
 
 function string(name, value) {
-  common.typeCheck(name, value, 'string');
   return new StringAssert(name, value);
 }
 
@@ -22,9 +20,20 @@ function array(name, value) {
   // return new ArrayAssert(name, value);
 }
 
+function custom(name, value, predicate) {
+  common.typeCheck(name, predicate, 'function');
+
+  var body = predicate.toString().match(/^function\s*\(.*\)\s*{\s*(.*)\s*};?$/)[1];
+  if(!predicate(value)) {
+    common.error(value, body, 'value must match predicate ' + body, 'custom');
+  }
+  return this;
+}
+
 module.exports = {
   number: number,
   string: string,
   bool: bool,
-  array: array
+  array: array,
+  custom: custom
 };

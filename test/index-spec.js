@@ -69,4 +69,24 @@ describe('Assert', function() {
       }).to.throw(/array/);
     });
   });
+
+  describe('Custom', function() {
+    it('throw an error when predicate is not a function', function() {
+      expect(function() {
+        assert.custom('test', 'test', 'test');
+      }).to.throw(/function/);
+    });
+
+    it('throws an error when value does not match the predicate', function() {
+      expect(function() {
+        assert.custom('test', 'test', function(x) { return x === 'fail' });
+      }).to.throw(/predicate/);
+    });
+
+    it('does not throw an error when value matches the predicate', function() {
+      expect(function() {
+        assert.custom('test', 'test', function(x) { return x === 'test'; });
+      }).to.not.throw(/predicate/);
+    });
+  });
 });
