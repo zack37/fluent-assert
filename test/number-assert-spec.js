@@ -1,3 +1,5 @@
+'use strict';
+
 var expect = require('chai').expect;
 var NumberAssert = require('../src/number-assert');
 
@@ -44,7 +46,7 @@ describe('NumberAssert', function() {
     it('does not throw an error for value same as "max"', function() {
       var na = new NumberAssert('test', 100);
       expect(function() {
-        na.max(100)
+        na.max(100);
       }).to.not.throw(/less/);
     });
   });
@@ -122,7 +124,7 @@ describe('NumberAssert', function() {
     it('does not throw an error when value is equal to compare', function() {
       var na = new NumberAssert('test', 10);
       expect(function() {
-        na.equal(10)
+        na.equal(10);
       }).to.not.throw(/equal/);
     });
   });

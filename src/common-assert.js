@@ -1,10 +1,12 @@
+'use strict';
+
 var AssertionError = require('assert').AssertionError;
 
 function typeCheck(name, value, type) {
-  if(typeof(value) !== type) {
+  if(typeof (value) !== type) {
     throw new AssertionError({
       message: name + ' should be of type ' + type,
-      actual: typeof(value),
+      actual: typeof value,
       expected: type,
       operation: type,
       stackStartFunction: type
@@ -16,7 +18,7 @@ function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
     throw new AssertionError({
       message: name + ' should be an array',
-      actual: typeof(value),
+      actual: typeof value,
       expected: 'Array',
       operation: 'array',
       stackStartFunction: 'array'

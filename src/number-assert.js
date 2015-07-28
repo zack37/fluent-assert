@@ -1,4 +1,5 @@
-var AssertionError = require('assert').AssertionError;
+'use strict';
+
 var common = require('./common-assert');
 
 function NumberAssert(name, value) {
@@ -40,7 +41,7 @@ NumberAssert.prototype.range = function(lower, upper) {
   return this;
 };
 
-NumberAssert.prototype.even = function () {
+NumberAssert.prototype.even = function() {
   if(this.value % 2 === 1) {
     common.error(this.value,
       'even number',
@@ -50,7 +51,7 @@ NumberAssert.prototype.even = function () {
   return this;
 };
 
-NumberAssert.prototype.odd = function () {
+NumberAssert.prototype.odd = function() {
   if(this.value % 2 === 0) {
     common.error(this.value,
       'odd number',
@@ -68,7 +69,7 @@ NumberAssert.prototype.equal = function(compare) {
       'equal');
   }
   return this;
-}
+};
 
 NumberAssert.prototype.in = function(values) {
   common.arrayCheck('values', values);
@@ -79,6 +80,6 @@ NumberAssert.prototype.in = function(values) {
       'in');
   }
   return this;
-}
+};
 
 module.exports = NumberAssert;
