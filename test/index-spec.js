@@ -5,13 +5,17 @@ var assert = require('../src/index');
 var NumberAssert = require('../src/number-assert');
 var StringAssert = require('../src/string-assert');
 var ObjectAssert = require('../src/object-assert');
+var ArrayAssert = require('../src/array-assert');
 
 describe('Assert', function() {
+
   describe('#number', function() {
+
     it('can create a number validator', function() {
       expect(function() {
         assert.number('test', 0);
       }).to.not.throw(/number/);
+
     });
 
     it('returns a number validator', function() {
@@ -24,9 +28,11 @@ describe('Assert', function() {
         assert.number('test', '0');
       }).to.throw(/number/);
     });
+
   });
 
   describe('#string', function() {
+
     it('can create a string validator', function() {
       expect(function() {
         assert.string('test', 'test');
@@ -43,9 +49,11 @@ describe('Assert', function() {
         assert.string('test', 0);
       }).to.throw(/string/);
     });
+
   });
 
   describe('#boolean', function() {
+
     it('can create a boolean validator', function() {
       expect(function() {
         assert.bool('test', false);
@@ -57,13 +65,20 @@ describe('Assert', function() {
         assert.bool('test', 'false');
       }).to.throw(/boolean/);
     });
+
   });
 
   describe('#array', function() {
+
     it('can create an array validator', function() {
       expect(function() {
         assert.array('test', []);
       }).to.not.throw(/array/);
+    });
+
+    it('returns an ArrayAssert', function() {
+      var aa = assert.array('test', []);
+      expect(aa).to.be.an.instanceof(ArrayAssert);
     });
 
     it('throws when creating an array validator for not an array', function() {
@@ -71,9 +86,11 @@ describe('Assert', function() {
         assert.array('test', {});
       }).to.throw(/array/);
     });
+
   });
 
   describe('#custom', function() {
+
     it('throw an error when predicate is not a function', function() {
       expect(function() {
         assert.custom('test', 'test', 'test');
@@ -91,9 +108,11 @@ describe('Assert', function() {
         assert.custom('test', 'test', function(x) { return x === 'test'; });
       }).to.not.throw(/predicate/);
     });
+
   });
 
   describe('#object', function() {
+
     it('throws an error when value is not an object', function() {
       expect(function() {
         assert.object('test', 'not a direct object');
@@ -110,9 +129,11 @@ describe('Assert', function() {
         assert.object('test', {});
       }).to.not.throw(/object/);
     });
+
   });
 
   describe('#ok', function() {
+
     it('throws an error when value is null', function() {
       expect(function() {
         assert.ok('test', null);
@@ -130,5 +151,7 @@ describe('Assert', function() {
         assert.ok('test', {});
       }).to.not.throw(/(null)|(undefined)/);
     });
+
   });
+
 });

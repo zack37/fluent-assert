@@ -4,6 +4,7 @@ var common = require('./common-assert');
 var NumberAssert = require('./number-assert');
 var StringAssert = require('./string-assert');
 var ObjectAssert = require('./object-assert');
+var ArrayAssert = require('./array-assert');
 
 function number(name, value) {
   return new NumberAssert(name, value);
@@ -22,13 +23,12 @@ function object (name, value) {
 }
 
 function array(name, value) {
-  common.arrayCheck(name, value);
-  // return new ArrayAssert(name, value);
+  return new ArrayAssert(name, value);
 }
 
 function ok(name, value) {
   if(value === undefined || value === null) {
-    common.error(value, 'value not undefined or null', value + 'should not be undefined or null', 'ok');
+    common.error(value, name + ' to not be undefined or null', value + 'should not be undefined or null', 'ok');
   }
   return this;
 }
@@ -36,9 +36,8 @@ function ok(name, value) {
 function custom(name, value, predicate) {
   common.typeCheck(name, predicate, 'function');
 
-  var body = predicate.toString().match(/^function\s*\(.*\)\s*\{\s*(.*)\s*\};?$/)[1];
   if(!predicate(value)) {
-    common.error(value, body, 'value must match predicate ' + body, 'custom');
+    common.error(value, name + ' should satisfy the predicate function', 'value must match predicate', 'custom');
   }
   return this;
 }

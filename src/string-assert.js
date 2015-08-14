@@ -6,8 +6,8 @@ function StringAssert(name, value) {
   common.typeCheck(name, value, 'string');
 
   Object.defineProperties(this, {
-    name: {enumerable: true, configurable: false, writable: false, value: name},
-    value: {enumerable: true, configurable: false, writable: false, value: value}
+    name: { enumerable: true, configurable: false, writable: false, value: name },
+    value: { enumerable: true, configurable: false, writable: false, value: value }
   });
 }
 

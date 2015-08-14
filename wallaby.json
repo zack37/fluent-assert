@@ -1,0 +1,14 @@
+{
+  "files": [
+    "src/*.js"
+  ],
+  "tests": [
+    "test/*-spec.js"
+  ],
+  "env": {
+    "type": "node"
+  },
+  "workers": {
+    "recycle": true
+  }
+}
