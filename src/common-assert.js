@@ -36,8 +36,15 @@ function error(actual, expected, message, func) {
   });
 }
 
+function optional(isOptional, value, cb) {
+  if(!isOptional || (value !== null && value !== undefined)) {
+    return cb();
+  }
+}
+
 module.exports = {
   typeCheck: typeCheck,
   arrayCheck: arrayCheck,
-  error: error
+  error: error,
+  optional: optional
 };

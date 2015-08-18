@@ -2,6 +2,12 @@
 
 var common = require('./common-assert');
 
+/**
+ * Array assertions
+ * @constructor
+ * @param name - The name of the variable being tested
+ * @param value - The value of the variable being tested
+ */
 function ArrayAssert(name, value) {
   common.arrayCheck(name, value);
 
@@ -11,6 +17,11 @@ function ArrayAssert(name, value) {
   });
 }
 
+/**
+ * Tests if value is an array containing values of the same specified type
+ * @param type - The type to check all values in the array against
+ * @returns {ArrayAssert}
+ */
 ArrayAssert.prototype.of = function(type) {
   var isAllOfType = this.value.every(function(x) {
     return (typeof x) === type;
@@ -23,6 +34,10 @@ ArrayAssert.prototype.of = function(type) {
   return this;
 };
 
+/**
+ * Tests if the array contains some element
+ * @param value
+ */
 ArrayAssert.prototype.contains = function(value) {
   var containsValue = this.value.some(function(x) {
     return x === value;

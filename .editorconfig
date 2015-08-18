@@ -8,5 +8,5 @@ indent_style = space
 
 [*.{js,json}]
 indent_size = 2
-space_around_brackets = inside
+spaces_around_brackets = inside
 indent_brace_style = K&R
