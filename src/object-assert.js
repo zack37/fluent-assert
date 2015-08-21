@@ -3,7 +3,7 @@
 var common = require('./common-assert');
 
 function ObjectAssert(name, value) {
-  common.typeCheck('name', value, 'object');
+  common.typeCheck(name, value, 'object');
 
   Object.defineProperties(this, {
     name: { enumerable: true, configurable: false, writable: false, value: name },
