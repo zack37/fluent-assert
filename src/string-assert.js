@@ -26,10 +26,10 @@ function StringAssert(name, value) {
  */
 StringAssert.prototype.matches = function(regexp) {
   if(!(regexp instanceof RegExp)) {
-    common.error(this.value, regexp.toString(), 'parameters regexp should be of type RegExp', regexp.toString(), 'matches');
+    common.error(this.value, regexp.toString(), 'parameter regexp should be of type RegExp', regexp.toString(), 'matches');
   }
   if(!regexp.test(this.value)) {
-    common.error(this.value, regexp.toString(), this.value + ' should match pattern ', regexp.toString(), 'matches');
+    common.error(this.value, regexp.toString(), this.name + ' should match pattern ', regexp.toString(), 'matches');
   }
   return this;
 };
@@ -50,7 +50,7 @@ StringAssert.prototype.notEmpty = function() {
  * @returns {StringAssert}
  */
 StringAssert.prototype.notWhiteSpace = function() {
-  if(/\s/.test(this.value)) {
+  if(/^\s*$/.test(this.value)) {
     common.error(this.value, 'non white space only string', this.name + ' should be a non white space only string', 'notWhiteSpace');
   }
   return this;

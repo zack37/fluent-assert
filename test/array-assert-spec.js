@@ -7,17 +7,31 @@ describe('ArrayAssert', function() {
 
   describe('#of', function() {
 
-    it('throws an error when array is not all of "type"', function() {
+    it('throws an error when array is not all of "type" as string', function() {
       var aa = new ArrayAssert('test', [1, '1']);
       expect(function() {
         aa.of('number');
       }).to.throw(/type/);
     });
 
-    it('does not throw an error when array is all of "type"', function() {
+    it('does not throw an error when array is all of "type" as string', function() {
       var aa = new ArrayAssert('test', [1, 2]);
       expect(function() {
         aa.of('number');
+      }).to.not.throw(/type/);
+    });
+
+    it('should throw an error when array is not all of "type" as function', function() {
+      var aa = new ArrayAssert('test', [1, 2, '3']);
+      expect(function() {
+        aa.of(Number);
+      }).to.throw(/type/);
+    });
+
+    it('should not throw an error when array is not all of "type" as function', function() {
+      var aa = new ArrayAssert('test', [Number(1), 2, 3]);
+      expect(function() {
+        aa.of(Number);
       }).to.not.throw(/type/);
     });
 

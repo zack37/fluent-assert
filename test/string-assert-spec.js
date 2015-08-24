@@ -49,11 +49,19 @@ describe('StringAssert', function() {
   });
 
   describe('#notWhiteSpace', function() {
+
     it('throws an error when value is a white space string', function() {
       var sa = new StringAssert('test', '         \t');
       expect(function() {
         sa.notWhiteSpace();
       }).to.throw('white space');
+    });
+
+    it('should throw an error when value is an empty string', function() {
+      var sa = new StringAssert('test', '');
+      expect(function() {
+        sa.notWhiteSpace();
+      }).to.throw(/white space/);
     });
 
     it('should returns an instance of StringAssert', function() {
@@ -67,5 +75,14 @@ describe('StringAssert', function() {
         sa.notWhiteSpace();
       }).to.not.throw('white space');
     });
+
+    it('should not throw an error when value is not only whitespace', function() {
+      var sa = new StringAssert('test', ' test ');
+      expect(function() {
+        sa.notWhiteSpace();
+      }).to.not.throw('white space');
+    });
+
   });
+
 });

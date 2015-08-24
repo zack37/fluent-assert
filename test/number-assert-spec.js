@@ -52,6 +52,7 @@ describe('NumberAssert', function() {
   });
 
   describe('#range', function() {
+
     it('throws an error when lower bound rule is violated', function() {
       var na = new NumberAssert('test', 0);
       expect(function() {
@@ -66,12 +67,27 @@ describe('NumberAssert', function() {
       }).to.throw(/between/);
     });
 
+    it('should not throw an error when value is the same as the lower bound', function() {
+      var na = new NumberAssert('test', 10);
+      expect(function() {
+        na.range(10, 100);
+      }).to.not.throw(/between/);
+    });
+
+    it('should not throw an error when value is the same as the upper bound rule', function() {
+      var na = new NumberAssert('test', 10);
+      expect(function() {
+        na.range(1, 10);
+      }).to.not.throw(/between/);
+    });
+
     it('does not throw an error when value passed to NumberAssert lies within lower and upper bound', function() {
       var na = new NumberAssert('test', 5);
       expect(function() {
         na.range(1, 10);
       }).to.not.throw(/between/);
     });
+
   });
 
   describe('#even', function() {

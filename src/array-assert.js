@@ -23,12 +23,16 @@ function ArrayAssert(name, value) {
  * @returns {ArrayAssert}
  */
 ArrayAssert.prototype.of = function(type) {
-  var isAllOfType = this.value.every(function(x) {
-    return (typeof x) === type;
-  });
+  var inner = (typeof type === 'string')
+    ? (function(x) { return typeof x === type })
+    : (function(x) { return (x).constructor === type });
+
+  console.log(inner.toString());
+
+  var isAllOfType = this.value.every(inner);
 
   if(!isAllOfType) {
-    common.error(this.value, this.name + ' to be an array of all ' + type, 'Array elements should be all of type ' + type, 'of');
+    common.error(this.value, this.name + ' to be an array of all ' + type, this.name + ' should be all of type ' + type, 'of');
   }
 
   return this;
@@ -46,6 +50,8 @@ ArrayAssert.prototype.contains = function(value) {
   if(!containsValue) {
     common.error(this.value, value, this.name + ' should contain ' + value, 'contains');
   }
+
+  return this;
 };
 
 module.exports = ArrayAssert;
