@@ -5,6 +5,7 @@ var NumberAssert = require('./number-assert');
 var StringAssert = require('./string-assert');
 var ObjectAssert = require('./object-assert');
 var ArrayAssert = require('./array-assert');
+var DateAssert = require('./date-assert');
 
 var _isOptional = false;
 
@@ -93,6 +94,7 @@ Assert.prototype.object = function(name, value) {
     return new ObjectAssert(name, value);
   });
 };
+
 /**
  * Asserts if the value being passed in is an array
  * @param {String} name - The name of the value being tested
@@ -106,9 +108,21 @@ Assert.prototype.array = function(name, value) {
   });
 };
 
+/**
+ * Asserts if the value being passed in is a function
+ * @param {String} name - The name of the value being tested
+ * @param {Object} value - The value being tested
+ * @throws {AssertionError} - If value is not a function
+ */
 Assert.prototype.func = function(name, value) {
   common.optional(this.isOptional, value, function() {
     common.typeCheck(name, value, 'function');
+  });
+};
+
+Assert.prototype.date = function(name, value) {
+  return common.optional(this.isOptional, value, function() {
+    return new DateAssert(name ,value);
   });
 };
 

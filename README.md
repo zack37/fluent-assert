@@ -23,12 +23,13 @@ fluent-assert has the most of the familiar contract assertions found in other li
 - `assert.number(...)`
 - `assert.boolean(...)`
 - `assert.object(...)`
+- `...`
 
 fluent-assert has other type contracts such as:
 - `assert.array(...) // Only checks to make sure value is an array`
 - `assert.ok(...) // Asserts value is not null or undefined`
 - `assert.custom(name, value, predicate) // Checks if value passes the predicate function`
-
+- `...`
 
 
 ### String
@@ -168,4 +169,59 @@ Validates your array contains some value. Useful for checking required values pa
 ```js
 assert.array('myVar', [1, 2, 3]).contains(2); // Safe
 assert.array('myVar', [1, 2, 3]).contains(4); // AssertionError: myVar should contain 4
+```
+
+### Date
+The date assertion helps you validate certain properties against javascript dates.
+```js
+assert.date('myVar', new Date('January 1, 1970'));
+```
+
+#### #before(date)
+Validates your date occurs before [date]
+```js
+assert.date('myVar', new Date('January 1, 1970')).before(new Date('January 2, 1970')); // Safe
+assert.date('myVar', new Date('January 1, 1970')).before(new Date('December 31, 1969')); // AssertionError: myVar should occur before ... Dec 31 1969 ...
+```
+
+#### #after(date)
+Validates your date occurs after [date]
+```js
+assert.date('myVar', new Date('January 1, 1970')).after(new Date('December 31, 1969')); // Safe
+assert.date('myVar', new Date('January 1, 1970')).after(new Date('January 2, 1970')); // AssertionError myVar should occur after ... Jan 02 1970 ...
+```
+
+#### #within(lower, upper)
+Validates your date occurs between [lower] and [upper]
+```js
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 31, 1969'), new Date('January 2, 1970)); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 1, 1970'), new Date('January 3, 1970)); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 30, 1969'), new Date('January 1, 1970)); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 2, 1970'), new Date('January 4, 1970)); // AssertionError: myVar should be within ... Jan 02 1970 ... and ... Jan 04 1970 ...
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 29, 1969'), new Date('December 31, 1969)); // AssertionError: myVar should be within ... Dec 29 1969 ... and ... Dec 31 1960 ...
+```
+
+#### #dayOf(day)
+Validates your date occurs on the day of [day]
+```js
+assert.date('myVar', new Date('January 1, 1970')).dayOf(1); // Safe
+assert.date('myVar', new Date('January 1, 1970')).dayOf(2); // AssertionError: myVar should occur on day 2
+```
+
+#### #monthOf(month)
+Validates your date occurs on the month of [month]
+```js
+assert.date('myVar', new Date('January 1, 1970')).monthOf(0); // Safe
+assert.date('myVar', new Date('January 1, 1970')).monthOf('Jan'); // Safe
+assert.date('myVar', new Date('January 1, 1970')).monthOf('January'); // Safe
+assert.date('myVar', new Date('January 1, 1970')).monthOf(1); // AssertionError: myVar should occur on month 1
+assert.date('myVar', new Date('January 1, 1970')).monthOf('Feb'); // AssertionError: myVar should occur on month Feb
+assert.date('myVar', new Date('January 1, 1970')).monthOf('February); // AssertionError: myVar should occur on month February
+```
+
+#### #yearOf(year)
+Validates your date occurs on the year of [year]
+```js
+assert.date('myVar', new Date('January 1, 1970')).yearOf(1970); // Safe
+assert.date('myVar', new Date('January 1, 1970')).yearOf(1969); // AssertionError: myVar should occur on year 1969
 ```

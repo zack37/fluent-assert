@@ -19,15 +19,13 @@ function ArrayAssert(name, value) {
 
 /**
  * Tests if value is an array containing values of the same specified type
- * @param type - The type to check all values in the array against
+ * @param {String|Function} type - The type to check all values in the array against
  * @returns {ArrayAssert}
  */
 ArrayAssert.prototype.of = function(type) {
   var inner = (typeof type === 'string')
     ? (function(x) { return typeof x === type })
     : (function(x) { return (x).constructor === type });
-
-  console.log(inner.toString());
 
   var isAllOfType = this.value.every(inner);
 

@@ -42,9 +42,18 @@ function optional(isOptional, value, cb) {
   }
 }
 
+function toStringCheck(name, value, expectedType) {
+  var objToString = Object.prototype.toString.call(value);
+  var regexp = new RegExp(expectedType, 'i');
+  if(!regexp.test(objToString)) {
+    error(value, expectedType, name + ' should be of type ' + expectedType, 'toStringCheck');
+  }
+}
+
 module.exports = {
   typeCheck: typeCheck,
   arrayCheck: arrayCheck,
   error: error,
-  optional: optional
+  optional: optional,
+  toStringCheck: toStringCheck
 };
