@@ -6,6 +6,7 @@ var NumberAssert = require('../src/number-assert');
 var StringAssert = require('../src/string-assert');
 var ObjectAssert = require('../src/object-assert');
 var ArrayAssert = require('../src/array-assert');
+var DateAssert = require('../src/date-assert');
 
 describe('Assert', function() {
 
@@ -75,7 +76,6 @@ describe('Assert', function() {
       it('should throw an error for defined non-buffer value', function() {
         expect(function() {
           assert.optional().buffer('test', {});
-          console.log('isOptional', assert.isOptional);
         }).to.throw(/buffer/);
       });
 
@@ -218,6 +218,34 @@ describe('Assert', function() {
           assert.optional().array('test', 0);
         }).to.throw(/array/);
       });
+    });
+
+    describe('date', function() {
+
+      it('should not throw an error for an undefined argument', function() {
+        expect(function() {
+          assert.optional().date('test', undefined);
+        }).to.not.throw(/date/i);
+      });
+
+      it('should not throw an error for a null argument', function() {
+        expect(function() {
+          assert.optional().date('test', null);
+        }).to.not.throw(/date/i);
+      });
+
+      it('should not throw an error for date value', function() {
+        expect(function() {
+          assert.optional().date('test', new Date());
+        }).to.not.throw(/date/i);
+      });
+
+      it('should throw an error for defined non-date value', function() {
+        expect(function() {
+          assert.optional().date('test', {});
+        }).to.throw(/date/i);
+      });
+
     });
 
   });
@@ -373,6 +401,27 @@ describe('Assert', function() {
       expect(function() {
         assert.object('test', {});
       }).to.not.throw(/object/);
+    });
+
+  });
+
+  describe('#date', function() {
+
+    it('should throw an error when value is not a date', function() {
+      expect(function() {
+        assert.date('test', {});
+      }).to.not.throw(/date/);
+    });
+
+    it('return a DateAssert', function() {
+      var da = assert.date('test', new Date());
+      expect(da).to.be.an.instanceOf(DateAssert);
+    });
+
+    it('should not throw an error when value is a date', function() {
+      expect(function() {
+        assert.date('test', new Date());
+      }).to.not.throw(/date/);
     });
 
   });
