@@ -5,8 +5,10 @@ var common = require('./common-assert');
 /**
  * Array assertions
  * @constructor
+ * @public
  * @param name - The name of the variable being tested
  * @param value - The value of the variable being tested
+ * @throws {AssertionError} - Throws error if value is not an array
  */
 function ArrayAssert(name, value) {
   common.arrayCheck(name, value);
@@ -19,8 +21,9 @@ function ArrayAssert(name, value) {
 
 /**
  * Tests if value is an array containing values of the same specified type
- * @param {String|Function} type - The type to check all values in the array against
+ * @param {String|Function} type - The type to check all values in the array against. Can be a string for `typeof` check or function for class comparison
  * @returns {ArrayAssert}
+ * @throws {AssertionError} - Throws error if all elements in value are not of type
  */
 ArrayAssert.prototype.of = function(type) {
   var inner = (typeof type === 'string')
@@ -38,7 +41,9 @@ ArrayAssert.prototype.of = function(type) {
 
 /**
  * Tests if the array contains some element
- * @param value
+ * @param {Object} value - Singular element to check if any of values elements equal value using === comparison
+ * @returns {ArrayAssert}
+ * @throws {AssertionError} - Throws error if value does not contain supplied value
  */
 ArrayAssert.prototype.contains = function(value) {
   var containsValue = this.value.some(function(x) {

@@ -8,8 +8,10 @@ var fullMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'J
 /**
  * Date Assertions
  * @constructor
+ * @public
  * @param {String} name - The name of the variable being tested
- * @param {Object} value - The value being tested
+ * @param {Date} value - The value being tested
+ * @throws {AssertionError} - Throws error if value is not a Date
  */
 function DateAssert(name, value) {
   common.toStringCheck(name, value, 'Date');
@@ -22,8 +24,9 @@ function DateAssert(name, value) {
 
 /**
  * Tests if value occurs before the supplied date
- * @param {Date} date
+ * @param {Date} date - Date to test value against
  * @returns {DateAssert}
+ * @throws {AssertionError} - Throws error if value occurs after date
  */
 DateAssert.prototype.before = function(date) {
   if(this.value < date) {
@@ -34,8 +37,9 @@ DateAssert.prototype.before = function(date) {
 
 /**
  * Tests if value occurs after the supplied date
- * @param {Date} date
+ * @param {Date} date - Date to test value against
  * @returns {DateAssert}
+ * @throws {AssertionError} Throws error if value occurs before date
  */
 DateAssert.prototype.after = function(date) {
   if(this.value > date) {
@@ -46,9 +50,10 @@ DateAssert.prototype.after = function(date) {
 
 /**
  * Tests if value occurs between lower and upper
- * @param {Date} lower
- * @param {Date} upper
+ * @param {Date} lower - Lower bound of date range
+ * @param {Date} upper - Upper bound of date range
  * @returns {DateAssert}
+ * @throws {AssertionError} - Throws error if value is outside of lower - upper range
  */
 DateAssert.prototype.within = function(lower, upper) {
   if(this.value < lower || this.value > upper) {
@@ -59,8 +64,9 @@ DateAssert.prototype.within = function(lower, upper) {
 
 /**
  * Tests if values day is the same as the day supplied
- * @param {Object|String|Number} day - day is first parsed to an int using parseInt and then compared
+ * @param {Object|String|Number} day - day is parsed as an int and then compared to value
  * @returns {DateAssert}
+ * @throws {AssertionError} - Throws error if values day does not equal day
  */
 DateAssert.prototype.dayOf = function(day) {
   if(this.value.getDate() !== parseInt(day)) {
@@ -74,6 +80,7 @@ DateAssert.prototype.dayOf = function(day) {
  * Tests if values month is the same as the month supplied
  * @param {Object|String|Number} month - month is first parsed and matched as a string against 3 or full length month name, else it's parsed to an int using parseInt and then compared
  * @returns {DateAssert}
+ * @throws {AssertionError} - Throws error if values month does not equal month
  */
 DateAssert.prototype.monthOf = function(month) {
   if(typeof month === 'string') {
@@ -101,6 +108,7 @@ DateAssert.prototype.monthOf = function(month) {
  * Tests if values year is the same as the year supplied
  * @param {Object|String|Number} year - year is first parsed to an int using parseInt and then compared
  * @returns {DateAssert}
+ * @throws {AssertionError} - Throws error if values year does not equal year
  */
 DateAssert.prototype.yearOf = function(year) {
   if(this.value.getFullYear() !== parseInt(year)) {

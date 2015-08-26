@@ -64,7 +64,7 @@ Assert.prototype.string = function(name, value) {
 
 /**
  * Asserts if the value being passed in is a boolean
- e @param {String} name - The name of the value being tested
+ * @param {String} name - The name of the value being tested
  * @param {Object} value - The value being tested
  * @throws {AssertionError} - If value is not a boolean
  */
@@ -74,6 +74,12 @@ Assert.prototype.bool = function(name, value) {
   });
 };
 
+/**
+ * Asserts if the value being passed in is a Buffer
+ * @param {String} name - The name of the value being tested
+ * @param {Object} value - The value being tested
+ * @throws {AssertionError} - If value is not a Buffer
+ */
 Assert.prototype.buffer = function(name, value) {
   common.optional(this.isOptional, value, function() {
     if(!Buffer.isBuffer(value)) {
@@ -120,6 +126,12 @@ Assert.prototype.func = function(name, value) {
   });
 };
 
+/**
+ * Asserts if the value being passed in is a date
+ * @param {String} name - The name of the value being tested
+ * @param {Object} value - The value being tested
+ * @throws {AssertionError} - If value is not a date
+ */
 Assert.prototype.date = function(name, value) {
   return common.optional(this.isOptional, value, function() {
     return new DateAssert(name ,value);

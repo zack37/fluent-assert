@@ -7,7 +7,8 @@ var common = require('./common-assert');
  * @constructor
  * @public
  * @param name - The name of the variable being tested
- * @param value - The value of the variable being tested
+ * @param value - The value being tested
+ * @throws {AssertionError} - Throws error if value is not a string
  */
 function StringAssert(name, value) {
   common.typeCheck(name, value, 'string');
@@ -22,7 +23,7 @@ function StringAssert(name, value) {
  * Tests value against a regular expression
  * @param regexp - Regular expression pattern to match value against
  * @returns {StringAssert}
- * @throws {AssertionError} - Throws error when value does not match supplied regular expression
+ * @throws {AssertionError} - Throws error if value does not match supplied regular expression
  */
 StringAssert.prototype.matches = function(regexp) {
   if(!(regexp instanceof RegExp)) {
@@ -37,6 +38,7 @@ StringAssert.prototype.matches = function(regexp) {
 /**
  * Tests if value is an empty string
  * @returns {StringAssert}
+ * @throws {AssertionError} - Throws error if value is an empty string
  */
 StringAssert.prototype.notEmpty = function() {
   if(this.value === '') {
@@ -48,6 +50,7 @@ StringAssert.prototype.notEmpty = function() {
 /**
  * Tests is value contains only whitespace characters
  * @returns {StringAssert}
+ * @throws {AssertionError} - Throws error if value contains nothing but white space characters or is empty
  */
 StringAssert.prototype.notWhiteSpace = function() {
   if(/^\s*$/.test(this.value)) {
