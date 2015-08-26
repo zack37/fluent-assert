@@ -2,6 +2,21 @@
 
 var AssertionError = require('assert').AssertionError;
 
+var runningMode = process.env.NODE_ENV || 'debug';
+
+/**
+ * Helper function to perform type checks. Allows for simple wrapping of the
+ * NODE_ENV environment variable
+ * @param {Object} value - The value to type
+ * @param {String} type - The type to test against as a string
+ * @returns {boolean}
+ */
+function isType(value, type) {
+  return runningMode === 'production'
+    ? true
+    : typeof value === type;
+}
+
 /**
  * Helper function to throw assertion error
  * @param actual - Actual value
@@ -27,7 +42,7 @@ function error(actual, expected, message, func) {
  * @throws {AssertionError} - Throws error if value is not of type
  */
 function typeCheck(name, value, type) {
-  if(typeof (value) !== type) {
+  if(!isType(value, type)) {
     error(typeof value, type, name + 'should be of type ' + type, 'type');
   }
 }
@@ -42,7 +57,7 @@ function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
     throw new AssertionError({
       message: name + ' should be an array',
-      actual: typeof value,
+      actual: value.toString(),
       expected: 'Array',
       operation: 'array',
       stackStartFunction: 'array'
@@ -85,6 +100,7 @@ function toStringCheck(name, value, expectedType) {
 
 module.exports = {
   typeCheck: typeCheck,
+  isType: isType,
   arrayCheck: arrayCheck,
   error: error,
   optional: optional,

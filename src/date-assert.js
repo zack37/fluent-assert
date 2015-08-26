@@ -57,7 +57,10 @@ util.inherits(DateAssert, AssertBase);
  */
 DateAssert.prototype.before = function(date) {
   if(this.value < date) {
-    common.error(this.value, 'Date before ' + this.value, this.name + ' should occur before ' + date, 'before');
+    common.error(this.value,
+      'Date before ' + this.value,
+      this.name + ' should occur before ' + date,
+      'before');
   }
   return this;
 };
@@ -70,7 +73,10 @@ DateAssert.prototype.before = function(date) {
  */
 DateAssert.prototype.after = function(date) {
   if(this.value > date) {
-    common.error(this.value, 'Date after ' + this.value, this.name + ' should occur after ' + date, 'after');
+    common.error(this.value,
+      'Date after ' + this.value,
+      this.name + ' should occur after ' + date,
+      'after');
   }
   return this;
 };
@@ -84,7 +90,10 @@ DateAssert.prototype.after = function(date) {
  */
 DateAssert.prototype.within = function(lower, upper) {
   if(this.value < lower || this.value > upper) {
-    common.error(this.value, 'Date within ' + lower + ' and ' + upper, this.name + ' should be within ' + lower + ' and ' + upper, 'within');
+    common.error(this.value,
+      'Date within ' + lower + ' and ' + upper,
+      this.name + ' should be within ' + lower + ' and ' + upper,
+      'within');
   }
   return this;
 };
@@ -97,7 +106,10 @@ DateAssert.prototype.within = function(lower, upper) {
  */
 DateAssert.prototype.dayOf = function(day) {
   if(this.value.getDate() !== parseInt(day)) {
-    common.error(this.value, day, this.name + ' should occur on day ' + day, 'dayOf');
+    common.error(this.value,
+      day,
+      this.name + ' should occur on day ' + day,
+      'dayOf');
   }
   return this;
 };
@@ -105,27 +117,38 @@ DateAssert.prototype.dayOf = function(day) {
 
 /**
  * Tests if values month is the same as the month supplied
- * @param {Object|String|Number} month - month is first parsed and matched as a string against 3 or full length month name, else it's parsed to an int using parseInt and then compared
+ * @param {Object|String|Number} month - month is first parsed and matched as a
+ * string against 3 or full length month name, else it's parsed to an int using
+ * parseInt and then compared
  * @returns {DateAssert}
  * @throws {AssertionError} - Throws error if values month does not equal month
  */
 DateAssert.prototype.monthOf = function(month) {
-  if(typeof month === 'string') {
+  if(common.isType(month, 'string')) {
     if(month.length === 3) {
       var short = shortMonthNames[this.value.getMonth()];
       if(short !== month) {
-        common.error(this.value, month, this.name + ' should occur on month ' + month, 'monthOf');
+        common.error(this.value,
+          month,
+          this.name + ' should occur on month ' + month,
+          'monthOf');
       }
     }
     if (month.length > 3) {
       var long = fullMonthNames[this.value.getMonth()];
       if(long !== month) {
-        common.error(this.value, month, this.name + ' should occur on month ' + month, 'monthOf');
+        common.error(this.value,
+          month,
+          this.name + ' should occur on month ' + month,
+          'monthOf');
       }
     }
   }
   else if(this.value.getMonth() !== parseInt(month)) {
-    common.error(this.value, month, this.name + ' should occur on month ' + month, 'monthOf');
+    common.error(this.value,
+      month,
+      this.name + ' should occur on month ' + month,
+      'monthOf');
   }
   return this;
 };
@@ -139,7 +162,10 @@ DateAssert.prototype.monthOf = function(month) {
  */
 DateAssert.prototype.yearOf = function(year) {
   if(this.value.getFullYear() !== parseInt(year)) {
-    common.error(this.value, year, this.name + ' should occur on year ' + year, 'yearOf');
+    common.error(this.value,
+      year,
+      this.name + ' should occur on year ' + year,
+      'yearOf');
   }
   return this;
 };
