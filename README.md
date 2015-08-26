@@ -47,7 +47,7 @@ assert.string('myVar', 'value').matches('Not regex') // AssertionError: paramete
 ```
 
 #### #notEmpty()
-Validates your value is not an empty string. Throws an assertion error is string is empty. Only works for the empty string. Use #notWhiteSpace for all other "empty" string values
+Validates your value is not an empty string. Throws an assertion error is string is empty. Only works for the empty string. Use `#notWhiteSpace` for all other "empty" string values
 ```js
 assert.string('myVar', 'something').notEmpty(); // Safe`
 assert.string('myVar', '').notEmpty(); // AssertionError: myVar should be a non empty string
@@ -55,7 +55,7 @@ assert.string('myVar', '').notEmpty(); // AssertionError: myVar should be a non 
 
 #### #notWhiteSpace()
 
-Validates your value is not only white space characters as dictated by javascripts RegExp. Will also validate value is not an empty string.
+Validates your value is not only white space characters as dictated by JavaScripts RegExp. Will also validate value is not an empty string.
 ```js
 assert.string('myVar', 'something').notWhiteSpace(); // Safe
 assert.string('myVar', ' something ').notWhiteSpace(); // Safe
@@ -98,7 +98,7 @@ assert.number('myVar', 10).range(1, 9); // AssertionError: myVar should be betwe
 Validates your value is an even number. Throws an assertion error if value is odd.
 ```js
 assert.number('myVar', 0).even(); // Safe
-assert.number('myar', 1).even(); // AssertionError: myVar should be even
+assert.number('myVar', 1).even(); // AssertionError: myVar should be even
 ```
 
 #### #odd()
@@ -127,6 +127,12 @@ Since boolean values are so simple, there are no use cases for assertion chains 
 ```js
 assert.boolean('myVar', true); // Safe
 assert.boolean('myVar', {}); // AssertionError: myVar should be of type boolean
+```
+
+### Buffer
+I'm not that keen on how Buffers work, so for now, there isn't any chaining functionality for Buffers
+```js
+assert.buffer('myVar', new Buffer(0));
 ```
 
 ### Object
@@ -171,6 +177,12 @@ assert.array('myVar', [1, 2, 3]).contains(2); // Safe
 assert.array('myVar', [1, 2, 3]).contains(4); // AssertionError: myVar should contain 4
 ```
 
+### Function
+Functions are another of those simple types in javascript, so currently no useful assertions can be made of functions
+```js
+assert.function('myVar', function() {});
+```
+
 ### Date
 The date assertion helps you validate certain properties against javascript dates.
 ```js
@@ -194,11 +206,11 @@ assert.date('myVar', new Date('January 1, 1970')).after(new Date('January 2, 197
 #### #within(lower, upper)
 Validates your date occurs between [lower] and [upper]
 ```js
-assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 31, 1969'), new Date('January 2, 1970)); // Safe
-assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 1, 1970'), new Date('January 3, 1970)); // Safe
-assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 30, 1969'), new Date('January 1, 1970)); // Safe
-assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 2, 1970'), new Date('January 4, 1970)); // AssertionError: myVar should be within ... Jan 02 1970 ... and ... Jan 04 1970 ...
-assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 29, 1969'), new Date('December 31, 1969)); // AssertionError: myVar should be within ... Dec 29 1969 ... and ... Dec 31 1960 ...
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 31, 1969'), new Date('January 2, 1970')); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 1, 1970'), new Date('January 3, 1970')); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 30, 1969'), new Date('January 1, 1970')); // Safe
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('January 2, 1970'), new Date('January 4, 1970')); // AssertionError: myVar should be within ... Jan 02 1970 ... and ... Jan 04 1970 ...
+assert.date('myVar', new Date('January 1, 1970')).within(new Date('December 29, 1969'), new Date('December 31, 1969')); // AssertionError: myVar should be within ... Dec 29 1969 ... and ... Dec 31 1960 ...
 ```
 
 #### #dayOf(day)

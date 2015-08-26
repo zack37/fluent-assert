@@ -14,6 +14,7 @@ describe('Assert', function() {
 
     it('should not keep isOptional true after each assertion chain', function() {
       assert.optional().bool('test', undefined);
+      expect(assert.isOptional).to.be.false;
       expect(function() {
         assert.bool('test', undefined);
       }).to.throw(/boolean/);
@@ -252,19 +253,19 @@ describe('Assert', function() {
 
   describe('#number', function() {
 
-    it('can create a number validator', function() {
+    it('should not throw an error when creating a number validator for a number', function() {
       expect(function() {
         assert.number('test', 0);
       }).to.not.throw(/number/);
 
     });
 
-    it('returns a number validator', function() {
+    it('should return a number validator', function() {
         var validator = assert.number('test', 0);
         expect(validator).to.be.an.instanceof(NumberAssert);
     });
 
-    it('throws when creating a number validator for not a number', function() {
+    it('should throw an error when creating a number validator for not a number', function() {
       expect(function() {
         assert.number('test', '0');
       }).to.throw(/number/);
@@ -274,18 +275,18 @@ describe('Assert', function() {
 
   describe('#string', function() {
 
-    it('can create a string validator', function() {
+    it('should not throw an error when creating a string validator for a string', function() {
       expect(function() {
         assert.string('test', 'test');
       }).to.not.throw(/string/);
     });
 
-    it('returns a string validator', function() {
+    it('should return a string validator', function() {
       var validator = assert.string('test', 'test');
       expect(validator).to.be.an.instanceof(StringAssert);
     });
 
-    it('throws when creating a string validator for not a string', function() {
+    it('should throw an error when creating a string validator for not a string', function() {
       expect(function() {
         assert.string('test', 0);
       }).to.throw(/string/);
@@ -295,13 +296,13 @@ describe('Assert', function() {
 
   describe('#boolean', function() {
 
-    it('can create a boolean validator', function() {
+    it('should not throw an error when creating a boolean validator for a boolean', function() {
       expect(function() {
         assert.bool('test', false);
       }).to.not.throw(/boolean/);
     });
 
-    it('throws when creating a boolean validator for not a boolean', function() {
+    it('should throw an erro when creating a boolean validator for not a boolean', function() {
       expect(function() {
         assert.bool('test', 'false');
       }).to.throw(/boolean/);
@@ -311,18 +312,18 @@ describe('Assert', function() {
 
   describe('#array', function() {
 
-    it('can create an array validator', function() {
+    it('should not throw an error when creating an array validator for an array', function() {
       expect(function() {
         assert.array('test', []);
       }).to.not.throw(/array/);
     });
 
-    it('returns an ArrayAssert', function() {
+    it('should return an ArrayAssert', function() {
       var aa = assert.array('test', []);
       expect(aa).to.be.an.instanceof(ArrayAssert);
     });
 
-    it('throws when creating an array validator for not an array', function() {
+    it('should throw an error when creating an array validator for not an array', function() {
       expect(function() {
         assert.array('test', {});
       }).to.throw(/array/);
@@ -364,19 +365,19 @@ describe('Assert', function() {
 
   describe('#custom', function() {
 
-    it('throw an error when predicate is not a function', function() {
+    it('should throw an error when predicate is not a function', function() {
       expect(function() {
         assert.custom('test', 'test', 'test');
       }).to.throw(/function/);
     });
 
-    it('throws an error when value does not match the predicate', function() {
+    it('should throw an error when value does not match the predicate', function() {
       expect(function() {
         assert.custom('test', 'test', function(x) { return x === 'fail'; });
       }).to.throw(/predicate/);
     });
 
-    it('does not throw an error when value matches the predicate', function() {
+    it('should not throw an error when value matches the predicate', function() {
       expect(function() {
         assert.custom('test', 'test', function(x) { return x === 'test'; });
       }).to.not.throw(/predicate/);
@@ -386,18 +387,18 @@ describe('Assert', function() {
 
   describe('#object', function() {
 
-    it('throws an error when value is not an object', function() {
+    it('should throw an error when value is not an object', function() {
       expect(function() {
         assert.object('test', 'not a direct object');
       }).to.throw(/object/);
     });
 
-    it('returns an ObjectAssert', function() {
+    it('should return an ObjectAssert', function() {
       var oa = assert.object('test', {});
       expect(oa).to.be.an.instanceof(ObjectAssert);
     });
 
-    it('does not throw an error when value is an object', function() {
+    it('should not throw an error when value is an object', function() {
       expect(function() {
         assert.object('test', {});
       }).to.not.throw(/object/);
@@ -413,7 +414,7 @@ describe('Assert', function() {
       }).to.not.throw(/date/);
     });
 
-    it('return a DateAssert', function() {
+    it('should return a DateAssert', function() {
       var da = assert.date('test', new Date());
       expect(da).to.be.an.instanceOf(DateAssert);
     });
@@ -428,19 +429,19 @@ describe('Assert', function() {
 
   describe('#ok', function() {
 
-    it('throws an error when value is null', function() {
+    it('should throw an error when value is null', function() {
       expect(function() {
         assert.ok('test', null);
       }).to.throw(/null/);
     });
 
-    it('throws an error when value is undefined', function() {
+    it('should throw an error when value is undefined', function() {
       expect(function() {
         assert.ok('test', undefined);
       }).to.throw(/undefined/);
     });
 
-    it('does not throw when value is not null and not undefined', function() {
+    it('should not throw when value is not null and not undefined', function() {
       expect(function() {
         assert.ok('test', {});
       }).to.not.throw(/(null)|(undefined)/);

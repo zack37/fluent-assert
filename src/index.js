@@ -64,7 +64,7 @@ Assert.prototype.string = function(name, value) {
 
 /**
  * Asserts if the value being passed in is a boolean
- e @param {String} name - The name of the value being tested
+ * @param {String} name - The name of the value being tested
  * @param {Object} value - The value being tested
  * @throws {AssertionError} - If value is not a boolean
  */
@@ -74,6 +74,12 @@ Assert.prototype.bool = function(name, value) {
   });
 };
 
+/**
+ * Asserts if the value being passed in is a Buffer
+ * @param {String} name - The name of the value being tested
+ * @param {Object} value - The value being tested
+ * @throws {AssertionError} - If value is not a Buffer
+ */
 Assert.prototype.buffer = function(name, value) {
   common.optional(this.isOptional, value, function() {
     if(!Buffer.isBuffer(value)) {
@@ -120,6 +126,12 @@ Assert.prototype.func = function(name, value) {
   });
 };
 
+/**
+ * Asserts if the value being passed in is a date
+ * @param {String} name - The name of the value being tested
+ * @param {Object} value - The value being tested
+ * @throws {AssertionError} - If value is not a date
+ */
 Assert.prototype.date = function(name, value) {
   return common.optional(this.isOptional, value, function() {
     return new DateAssert(name ,value);
@@ -134,7 +146,10 @@ Assert.prototype.date = function(name, value) {
  */
 Assert.prototype.ok = function(name, value) {
   if(value === undefined || value === null) {
-    common.error(value, name + ' to not be undefined or null', value + 'should not be undefined or null', 'ok');
+    common.error(value,
+      name + ' to not be undefined or null',
+      value + 'should not be undefined or null',
+      'ok');
   }
 };
 
@@ -149,7 +164,10 @@ Assert.prototype.custom = function(name, value, predicate) {
   common.typeCheck('predicate', predicate, 'function');
 
   if(!predicate(value)) {
-    common.error(value, name + ' should satisfy the predicate function', 'value must match predicate', 'custom');
+    common.error(value,
+      name + ' should satisfy the predicate function',
+      'value must match predicate',
+      'custom');
   }
 };
 
