@@ -12,9 +12,7 @@ var runningMode = process.env.NODE_ENV || 'debug';
  * @returns {boolean}
  */
 function isType(value, type) {
-  return runningMode === 'production'
-    ? true
-    : typeof value === type;
+  return runningMode === 'production' || typeof value === type;
 }
 
 /**
