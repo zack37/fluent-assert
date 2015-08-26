@@ -7,14 +7,14 @@ describe('ArrayAssert', function() {
 
   describe('#of', function() {
 
-    it('throws an error when array is not all of "type" as string', function() {
+    it('should throw an error when array is not all of "type" as string', function() {
       var aa = new ArrayAssert('test', [1, '1']);
       expect(function() {
         aa.of('number');
       }).to.throw(/type/);
     });
 
-    it('does not throw an error when array is all of "type" as string', function() {
+    it('should not throw an error when array is all of "type" as string', function() {
       var aa = new ArrayAssert('test', [1, 2]);
       expect(function() {
         aa.of('number');
@@ -39,14 +39,14 @@ describe('ArrayAssert', function() {
 
   describe('#contains', function() {
 
-    it('throws an error when array does not contain "value"', function() {
+    it('should throw an error when array does not contain "value"', function() {
       var aa = new ArrayAssert('test', [1]);
       expect(function() {
         aa.contains(2);
       }).to.throw(/contain/);
     });
 
-    it('does not throw an error when array contains "value"', function() {
+    it('should not throw an error when array contains "value"', function() {
       var aa = new ArrayAssert('test', [1]);
       expect(function() {
         aa.contains(1);
