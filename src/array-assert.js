@@ -1,6 +1,8 @@
 'use strict';
 
 var common = require('./common-assert');
+var util = require('util');
+var AssertBase = require('./assert-base');
 
 /**
  * Array assertions
@@ -13,11 +15,10 @@ var common = require('./common-assert');
 function ArrayAssert(name, value) {
   common.arrayCheck(name, value);
 
-  Object.defineProperties(this, {
-    name: { enumerable: true, configurable: false, writable: false, value: name },
-    value: { enumerable: true, configurable: false, writable: false, value: value }
-  });
+  AssertBase.call(this, name, value);
 }
+
+util.inherits(ArrayAssert, AssertBase);
 
 /**
  * Tests if value is an array containing values of the same specified type

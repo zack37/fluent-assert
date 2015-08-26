@@ -1,6 +1,8 @@
 'use strict';
 
 var common = require('./common-assert');
+var util = require('util');
+var AssertBase = require('./assert-base');
 
 var shortMonthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var fullMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
@@ -16,11 +18,10 @@ var fullMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'J
 function DateAssert(name, value) {
   common.toStringCheck(name, value, 'Date');
 
-  Object.defineProperties(this, {
-    name: { enumerable: true, configurable: false, writable: false, value: name },
-    value: { enumerable: true, configurable: false, writable: false, value: value }
-  });
+  AssertBase.call(this, name, value);
 }
+
+util.inherits(DateAssert, AssertBase);
 
 /**
  * Tests if value occurs before the supplied date

@@ -1,6 +1,8 @@
 'use strict';
 
 var common = require('./common-assert');
+var util = require('util');
+var AssertBase = require('./assert-base');
 
 /**
  * String assertions
@@ -13,11 +15,10 @@ var common = require('./common-assert');
 function StringAssert(name, value) {
   common.typeCheck(name, value, 'string');
 
-  Object.defineProperties(this, {
-    name: { enumerable: true, configurable: false, writable: false, value: name },
-    value: { enumerable: true, configurable: false, writable: false, value: value }
-  });
+  AssertBase.call(this, name, value);
 }
+
+util.inherits(StringAssert, AssertBase);
 
 /**
  * Tests value against a regular expression

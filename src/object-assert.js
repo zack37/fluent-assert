@@ -1,6 +1,8 @@
 'use strict';
 
 var common = require('./common-assert');
+var util = require('util');
+var AssertBase = require('./assert-base');
 
 /**
  * Object Assertions
@@ -13,11 +15,10 @@ var common = require('./common-assert');
 function ObjectAssert(name, value) {
   common.typeCheck(name, value, 'object');
 
-  Object.defineProperties(this, {
-    name: { enumerable: true, configurable: false, writable: false, value: name },
-    value: { enumerable: true, configurable: false, writable: false, value: value }
-  });
+  AssertBase.call(this, name, value);
 }
+
+util.inherits(ObjectAssert, AssertBase);
 
 /**
  * Tests value has the specified member. Properties and Functions included
