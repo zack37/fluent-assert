@@ -1,7 +1,7 @@
 'use strict';
 
-var common = require('./common-assert');
 var util = require('util');
+var common = require('./common-assert');
 var AssertBase = require('./assert-base');
 
 /**

@@ -146,7 +146,10 @@ Assert.prototype.date = function(name, value) {
  */
 Assert.prototype.ok = function(name, value) {
   if(value === undefined || value === null) {
-    common.error(value, name + ' to not be undefined or null', value + 'should not be undefined or null', 'ok');
+    common.error(value,
+      name + ' to not be undefined or null',
+      value + 'should not be undefined or null',
+      'ok');
   }
 };
 
@@ -161,7 +164,10 @@ Assert.prototype.custom = function(name, value, predicate) {
   common.typeCheck('predicate', predicate, 'function');
 
   if(!predicate(value)) {
-    common.error(value, name + ' should satisfy the predicate function', 'value must match predicate', 'custom');
+    common.error(value,
+      name + ' should satisfy the predicate function',
+      'value must match predicate',
+      'custom');
   }
 };
 

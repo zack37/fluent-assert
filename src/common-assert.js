@@ -64,8 +64,8 @@ function optional(isOptional, value, cb) {
 }
 
 /**
- * Similar to typeCheck, but uses the Object toString to grab the type for wrapped objects. Slower than typeof,
- * so please use typeCheck where possible
+ * Similar to typeCheck, but uses the Object toString to grab the type for
+ * wrapped objects. Slower than typeof, * so please use typeCheck where possible
  * https://jsperf.com/typeof-vs-object-prototype-tostring-call/5
  * @param {String} name - Name of value for assertion error message
  * @param {Object} value - value to check type of
@@ -76,7 +76,10 @@ function toStringCheck(name, value, expectedType) {
   var objToString = Object.prototype.toString.call(value);
   var regexp = new RegExp(expectedType, 'i');
   if(!regexp.test(objToString)) {
-    error(value, expectedType, name + ' should be of type ' + expectedType, 'toStringCheck');
+    error(value,
+      expectedType,
+      name + ' should be of type ' + expectedType,
+      'toStringCheck');
   }
 }
 
