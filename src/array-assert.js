@@ -28,8 +28,8 @@ util.inherits(ArrayAssert, AssertBase);
  * @throws {AssertionError} - Throws error if all elements in value are not of type
  */
 ArrayAssert.prototype.of = function(type) {
-  var inner = (typeof type === 'string')
-    ? (function(x) { return typeof x === type })
+  var inner = (common.isType(type, 'string'))
+    ? (function(x) { return common.isType(x, type); })
     : (function(x) { return (x).constructor === type });
 
   var isAllOfType = this.value.every(inner);
