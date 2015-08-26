@@ -35,6 +35,11 @@ describe('ArrayAssert', function() {
       }).to.not.throw(/type/);
     });
 
+    it('should return an ArrayAssert', function() {
+      var aa = new ArrayAssert('test', [1]);
+      expect(aa.of('number')).to.be.an.instanceOf(ArrayAssert);
+    });
+
   });
 
   describe('#contains', function() {
@@ -51,6 +56,11 @@ describe('ArrayAssert', function() {
       expect(function() {
         aa.contains(1);
       }).to.not.throw(/contain/);
+    });
+
+    it('should return an ArrayAssert', function() {
+      var aa = new ArrayAssert('test', [0]);
+      expect(aa.contains(0)).to.be.an.instanceOf(ArrayAssert);
     });
 
   });

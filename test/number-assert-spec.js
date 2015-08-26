@@ -3,8 +3,10 @@
 var expect = require('chai').expect;
 var NumberAssert = require('../src/number-assert');
 
-describe('numberassert', function() {
+describe('NumberAssert', function() {
+
   describe('#min', function() {
+
     it('should throw an error when validating a number smaller than "min"', function() {
       var na = new NumberAssert('test', 0);
       expect(function() {
@@ -26,9 +28,15 @@ describe('numberassert', function() {
       }).to.not.throw(/greater/);
     });
 
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.min(0)).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#max', function() {
+
     it('should throw an error when validating a number larger than "max"', function() {
       var na = new NumberAssert('test', 100);
       expect(function() {
@@ -49,6 +57,12 @@ describe('numberassert', function() {
         na.max(100);
       }).to.not.throw(/less/);
     });
+
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.max(0)).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#range', function() {
@@ -88,9 +102,15 @@ describe('numberassert', function() {
       }).to.not.throw(/between/);
     });
 
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.range(0, 10)).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#even', function() {
+
     it('should throw an error for odd numbers', function() {
       var na = new NumberAssert('test', 5);
       expect(function() {
@@ -104,9 +124,16 @@ describe('numberassert', function() {
         na.even();
       }).to.not.throw(/even/);
     });
+
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.even()).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#odd', function() {
+
     it('should throw an error for even numbers', function() {
       var na = new NumberAssert('test', 6);
       expect(function() {
@@ -120,9 +147,16 @@ describe('numberassert', function() {
         na.odd();
       }).to.not.throw(/odd/);
     });
+
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 1);
+      expect(na.odd()).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#equal', function() {
+
     it('should throw an error when value is greater than compare', function() {
       var na = new NumberAssert('test', 10);
       expect(function() {
@@ -143,9 +177,16 @@ describe('numberassert', function() {
         na.equal(10);
       }).to.not.throw(/equal/);
     });
+
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.equal(0)).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
 
   describe('#in', function() {
+
     it('should throw an error when parameter values is not an array', function() {
       var na = new NumberAssert('test', 0);
       expect(function() {
@@ -166,5 +207,12 @@ describe('numberassert', function() {
         na.in([0, 1, 2, 3, 4, 5]);
       }).to.not.throw(/in/);
     });
+
+    it('should return a NumberAssert', function() {
+      var na = new NumberAssert('test', 0);
+      expect(na.in([0])).to.be.an.instanceOf(NumberAssert);
+    });
+
   });
+
 });

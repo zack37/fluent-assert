@@ -5,6 +5,7 @@ var ObjectAssert = require('../src/object-assert');
 var NumberAssert = require('../src/number-assert');
 
 describe('ObjectAssert', function() {
+
   describe('#hasMember', function() {
 
     it('should throw an error when object does not have specified member', function() {

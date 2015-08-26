@@ -14,6 +14,7 @@ describe('Assert', function() {
 
     it('should not keep isOptional true after each assertion chain', function() {
       assert.optional().bool('test', undefined);
+      expect(assert.isOptional).to.be.false;
       expect(function() {
         assert.bool('test', undefined);
       }).to.throw(/boolean/);
@@ -413,7 +414,7 @@ describe('Assert', function() {
       }).to.not.throw(/date/);
     });
 
-    it('shuold return a DateAssert', function() {
+    it('should return a DateAssert', function() {
       var da = assert.date('test', new Date());
       expect(da).to.be.an.instanceOf(DateAssert);
     });

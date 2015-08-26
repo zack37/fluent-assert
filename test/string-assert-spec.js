@@ -4,7 +4,9 @@ var expect = require('chai').expect;
 var StringAssert = require('../src/string-assert');
 
 describe('StringAssert', function() {
+
   describe('#matches', function() {
+
     it('should throw an error when parameter is not of type RegExp', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
@@ -25,9 +27,16 @@ describe('StringAssert', function() {
         sa.matches(/test/);
       }).to.not.throw(/match/);
     });
+
+    it('should return a StringAssert', function() {
+      var sa = new StringAssert('test', 'test');
+      expect(sa.matches(/test/)).to.be.an.instanceOf(StringAssert);
+    });
+
   });
 
   describe('#notEmpty', function() {
+
     it('should throw an error when value is an empty string', function() {
       var sa = new StringAssert('test', '');
       expect(function() {
@@ -46,6 +55,7 @@ describe('StringAssert', function() {
         sa.notEmpty();
       }).to.not.throw(/empty/);
     });
+
   });
 
   describe('#notWhiteSpace', function() {
@@ -61,7 +71,7 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', '');
       expect(function() {
         sa.notWhiteSpace();
-      }).to.throw(/white space/);
+      }).to.throw('white space');
     });
 
     it('should return an instance of StringAssert', function() {
