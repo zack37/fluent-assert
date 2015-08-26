@@ -7,7 +7,8 @@
   "scripts": {
     "test": "mocha test --watch --bail --reporter list",
     "lint": "esw",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- -u exports -R spec test/**/*-spec.js && istanbul check-coverage --statements 95 --functions 95 --branches 95 --lines 95"
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- -u exports -R spec test/**/*-spec.js",
+    "ci": "npm run lint && npm run coverage && istanbul check-coverage --statements 95 --functions 95 --branches 95 --lines 95"
   },
   "keywords": [
     "assert",
@@ -20,6 +21,7 @@
     "chai": "^3.2.0",
     "eslint": "^1.1.0",
     "eslint-watch": "^1.2.5",
+    "istanbul": "^0.3.18",
     "mocha": "^2.2.5"
   }
 }

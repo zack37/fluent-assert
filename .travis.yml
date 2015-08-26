@@ -9,6 +9,4 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: false     # default: false
 script:
-    - npm run coverage
-before_install:
-    - npm install -g istanbul mocha
+    - npm run ci
