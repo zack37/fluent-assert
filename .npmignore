@@ -1,0 +1,7 @@
+src/
+test/
+.editorconfig
+.eslint*
+.travis.yml
+CONTRIBUTING.md
+wallaby.json
