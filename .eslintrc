@@ -1,7 +1,11 @@
 {
   "env":{
     "node": true,
-    "amd": true
+    "amd": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "modules": true
   },
   "rules":{
     "block-scoped-var": 2,

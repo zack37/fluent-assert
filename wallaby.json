@@ -1,14 +1,12 @@
 {
   "files": [
-    "src/*.js"
+    "src/*.js",
+    "lib/*.js"
   ],
   "tests": [
     "test/*-spec.js"
   ],
   "env": {
     "type": "node"
-  },
-  "workers": {
-    "recycle": true
   }
 }

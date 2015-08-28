@@ -1,8 +1,6 @@
-'use strict';
+import { AssertionError } from 'assert'
 
-var AssertionError = require('assert').AssertionError;
-
-var runningMode = process.env.NODE_ENV || 'debug';
+const runningMode = process.env.NODE_ENV || 'debug';
 
 /**
  * Helper function to perform type checks. Allows for simple wrapping of the
@@ -41,7 +39,7 @@ function error(actual, expected, message, func) {
  */
 function typeCheck(name, value, type) {
   if(!isType(value, type)) {
-    error(typeof value, type, name + 'should be of type ' + type, 'type');
+    error(typeof value, type, `${name} should be of type ${type}`, 'type');
   }
 }
 
@@ -54,7 +52,7 @@ function typeCheck(name, value, type) {
 function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
     throw new AssertionError({
-      message: name + ' should be an array',
+      message: `${name}  should be an array`,
       actual: value.toString(),
       expected: 'Array',
       operation: 'array',
@@ -86,21 +84,21 @@ function optional(isOptional, value, cb) {
  * @throws {AssertionError} - Throws error if value is not of type expectedType
  */
 function toStringCheck(name, value, expectedType) {
-  var objToString = Object.prototype.toString.call(value);
-  var regexp = new RegExp(expectedType, 'i');
+  let objToString = Object.prototype.toString.call(value);
+  let regexp = new RegExp(expectedType, 'i');
   if(!regexp.test(objToString)) {
     error(value,
       expectedType,
-      name + ' should be of type ' + expectedType,
+      `${name} should be of type ${expectedType}`,
       'toStringCheck');
   }
 }
 
-module.exports = {
-  typeCheck: typeCheck,
-  isType: isType,
-  arrayCheck: arrayCheck,
-  error: error,
-  optional: optional,
-  toStringCheck: toStringCheck
+export default {
+  typeCheck,
+  isType,
+  arrayCheck,
+  error,
+  optional,
+  toStringCheck
 };
