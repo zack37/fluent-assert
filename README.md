@@ -228,7 +228,7 @@ assert.date('myVar', new Date('January 1, 1970')).monthOf('Jan'); // Safe
 assert.date('myVar', new Date('January 1, 1970')).monthOf('January'); // Safe
 assert.date('myVar', new Date('January 1, 1970')).monthOf(1); // AssertionError: myVar should occur on month 1
 assert.date('myVar', new Date('January 1, 1970')).monthOf('Feb'); // AssertionError: myVar should occur on month Feb
-assert.date('myVar', new Date('January 1, 1970')).monthOf('February); // AssertionError: myVar should occur on month February
+assert.date('myVar', new Date('January 1, 1970')).monthOf('February'); // AssertionError: myVar should occur on month February
 ```
 
 #### #yearOf(year)
