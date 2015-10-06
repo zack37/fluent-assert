@@ -119,9 +119,9 @@ export default class NumberAssert extends AssertBase {
   in(values) {
     common.arrayCheck('values', values);
     if(values.indexOf(this.value) < 0) {
-      common.throw(this.value,
+      common.error(this.value,
         `value in ${values.toString()}`,
-        `${this.value} should be in ${values.toString()}`,
+        `${this.name} should be in ${values.toString()}`,
         'in');
     }
     return this;

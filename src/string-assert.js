@@ -48,7 +48,7 @@ export default class StringAssert extends AssertBase {
     if (this.value === '') {
       common.error(this.value,
         'non empty string',
-        `${this.name} should be a non empty string`,
+        `${this.name} should not be empty`,
         'notEmpty');
     }
     return this;
@@ -64,7 +64,7 @@ export default class StringAssert extends AssertBase {
     if (/^\s*$/.test(this.value)) {
       common.error(this.value,
         'non white space only string',
-        `${this.name} should be a non white space only string`,
+        `${this.name} should not be whitespace`,
         'notWhiteSpace');
     }
     return this;

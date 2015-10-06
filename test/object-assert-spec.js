@@ -12,7 +12,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', {});
       expect(function() {
         oa.hasMember('thing');
-      }).to.throw(/member/);
+      }).to.throw('test should have member named thing');
     });
 
     it('should throw an error when new object does not have specified member', function() {
@@ -20,7 +20,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', test);
       expect(function() {
         oa.hasMember('thing');
-      }).to.throw(/member/);
+      }).to.throw('test should have member named thing');
     });
 
     it('should return an instance of ObjectAssert', function() {
@@ -32,7 +32,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', { thing: 'thing' });
       expect(function() {
         oa.hasMember('thing');
-      }).to.not.throw(/member/);
+      }).to.not.throw('test should have member named thing');
     });
 
     it('should throw an error when new object does not have specified member', function() {
@@ -40,7 +40,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', test);
       expect(function() {
         oa.hasMember('hasMember');
-      }).to.not.throw(/member/);
+      }).to.not.throw('test should have member named hasMember');
     });
 
   });
@@ -52,7 +52,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', test);
       expect(function() {
         oa.instanceOf(String);
-      }).to.throw(/instance of/);
+      }).to.throw('test should be an instance of function String');
     });
 
     it('should return an instance of ObjectAssert', function() {
@@ -65,7 +65,7 @@ describe('ObjectAssert', function() {
       var oa = new ObjectAssert('test', test);
       expect(function() {
         oa.instanceOf(ObjectAssert);
-      }).to.not.throw(/instance of/);
+      }).to.not.throw('test should be an instance of function ObjectAssert');
     });
 
   });

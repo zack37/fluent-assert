@@ -166,7 +166,7 @@ class Assert {
     if(!predicate(value)) {
       common.error(value,
         `${name} should satisfy the predicate function`,
-        `${value} should match predicate`,
+        `${name} should match predicate`,
         'custom');
     }
   };

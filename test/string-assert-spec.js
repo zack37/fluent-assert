@@ -11,21 +11,21 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
         sa.matches('test');
-      }).to.throw(/RegExp/);
+      }).to.throw('parameter regexp should be of type RegExp');
     });
 
     it('should throw an error when value does not match pattern', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
         sa.matches(/fail/);
-      }).to.throw(/match/);
+      }).to.throw('test should match pattern /fail/');
     });
 
     it('should not throw an error when value matches pattern', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
         sa.matches(/test/);
-      }).to.not.throw(/match/);
+      }).to.not.throw('test should match pattern /test/');
     });
 
     it('should return a StringAssert', function() {
@@ -41,7 +41,7 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', '');
       expect(function() {
         sa.notEmpty();
-      }).to.throw(/empty/);
+      }).to.throw('test should not be empty');
     });
 
     it('should return an instance of StringAssert', function() {
@@ -53,7 +53,7 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
         sa.notEmpty();
-      }).to.not.throw(/empty/);
+      }).to.not.throw('test should not be empty');
     });
 
   });
@@ -64,14 +64,14 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', '         \t');
       expect(function() {
         sa.notWhiteSpace();
-      }).to.throw('white space');
+      }).to.throw('test should not be whitespace');
     });
 
     it('should throw an error when value is an empty string', function() {
       var sa = new StringAssert('test', '');
       expect(function() {
         sa.notWhiteSpace();
-      }).to.throw('white space');
+      }).to.throw('test should not be whitespace');
     });
 
     it('should return an instance of StringAssert', function() {
@@ -83,14 +83,14 @@ describe('StringAssert', function() {
       var sa = new StringAssert('test', 'test');
       expect(function() {
         sa.notWhiteSpace();
-      }).to.not.throw('white space');
+      }).to.not.throw('test should not be whitespace');
     });
 
     it('should not throw an error when value is not only whitespace', function() {
       var sa = new StringAssert('test', ' test ');
       expect(function() {
         sa.notWhiteSpace();
-      }).to.not.throw('white space');
+      }).to.not.throw('test should not be whitespace');
     });
 
   });
