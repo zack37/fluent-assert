@@ -52,7 +52,7 @@ function typeCheck(name, value, type) {
 function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
     throw new AssertionError({
-      message: `${name}  should be an array`,
+      message: `${name} should be an array`,
       actual: value.toString(),
       expected: 'Array',
       operation: 'array',

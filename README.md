@@ -21,7 +21,7 @@ All of fluent-asserts entry point functions (as described below) take two argume
 fluent-assert has the most of the familiar contract assertions found in other libraries, including:
 - `assert.string(...)`
 - `assert.number(...)`
-- `assert.boolean(...)`
+- `assert.bool(...)`
 - `assert.object(...)`
 - `...`
 
@@ -125,8 +125,8 @@ assert.number('myVar', 10).in([1, 3, 5, 7, 9]); // AssertionError: myVar should 
 ### Boolean
 Since boolean values are so simple, there are no use cases for assertion chains on booleans.
 ```js
-assert.boolean('myVar', true); // Safe
-assert.boolean('myVar', {}); // AssertionError: myVar should be of type boolean
+assert.bool('myVar', true); // Safe
+assert.bool('myVar', {}); // AssertionError: myVar should be of type boolean
 ```
 
 ### Buffer

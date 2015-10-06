@@ -25,7 +25,7 @@ export default class ObjectAssert extends AssertBase {
     if(!this.value[member]) {
       common.error(this.value,
         member,
-        `Expected ${this.name} to have member named ${member}`,
+        `${this.name} should have member named ${member}`,
         'hasMember');
     }
     return this;
