@@ -432,19 +432,19 @@ describe('Assert', function() {
     it('should throw an error when value is null', function() {
       expect(function() {
         assert.ok('test', null);
-      }).to.throw(/null/);
+      }).to.throw('test should not be undefined or null');
     });
 
     it('should throw an error when value is undefined', function() {
       expect(function() {
         assert.ok('test', undefined);
-      }).to.throw(/undefined/);
+      }).to.throw('test should not be undefined or null');
     });
 
     it('should not throw when value is not null and not undefined', function() {
       expect(function() {
         assert.ok('test', {});
-      }).to.not.throw(/(null)|(undefined)/);
+      }).to.not.throw('test should not be undefined or null');
     });
 
   });

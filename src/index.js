@@ -147,8 +147,8 @@ class Assert {
   ok(name, value) {
     if(value === undefined || value === null) {
       common.error(value,
-        `${name} + ' to not be undefined or null`,
-        `${value} + 'should not be undefined or null`,
+        `${name} to not be undefined or null`,
+        `${name} should not be undefined or null`,
         'ok');
     }
   };
@@ -166,7 +166,7 @@ class Assert {
     if(!predicate(value)) {
       common.error(value,
         `${name} should satisfy the predicate function`,
-        'value must match predicate',
+        `${value} should match predicate`,
         'custom');
     }
   };
