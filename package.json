@@ -9,7 +9,7 @@
     "tw": "npm test -- --watch --bail -R min",
     "prepublish": "npm run compile",
     "compile": "babel -d lib/ src/",
-    "lint": "esw",
+    "lint": "esw --quiet",
     "coverage": "istanbul cover node_modules/.bin/_mocha -- -R list --compilers js:babel/register test/*-spec.js",
     "ci": "npm run lint && npm run coverage && istanbul check-coverage --statements 95 --functions 95 --branches 95 --lines 95"
   },
@@ -22,10 +22,10 @@
   "license": "ISC",
   "devDependencies": {
     "babel": "^5.8.21",
-    "chai": "^3.2.0",
-    "eslint": "^1.1.0",
-    "eslint-watch": "^2.0.0",
-    "istanbul": "^0.3.18",
-    "mocha": "^2.2.5"
+    "chai": "^3.4.0",
+    "eslint": "^1.7.3",
+    "eslint-watch": "^2.1.2",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3"
   }
 }

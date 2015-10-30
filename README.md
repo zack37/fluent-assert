@@ -31,9 +31,36 @@ fluent-assert has other type contracts such as:
 - `assert.custom(name, value, predicate) // Checks if value passes the predicate function`
 - `...`
 
+### Assert
+Base assertions not tied to a specific type.
+
+#### #ok(name, value)
+Validates your value is not `null` or `undefined` ensuring your value is safe to operate on.
+```js
+assert.ok('myVar', {}); // Safe
+assert.ok('myVar', null); // AssertionError: myVar should not be undefined or null
+assert.ok('myVar', undefined); // AssertionError: myVar should not be undefined or null
+```
+
+#### #defined(name, value)
+Validates your value is defined (including null). Useful for allowing null values as defaults for third party libraries,
+```js
+assert.defined('myVar', {}); // Safe
+assert.defined('myVar', null); // Safe
+assert.defined('myVar', undefined); // AssertionError: myVar should not be undefined
+```
+
+#### #custom(name, value, predicate)
+Validates your value matches the given predicate. Useful when custom logic is needed specific to your own app not included in fluent-assert by default. The predicate function takes the value as an argument to minimize closures and leaves the function open for any extra checking that may be done by fluent-assert
+```js
+///Arrow Functions used for brevity
+assert.custom('myVar', 5, value => value === 5); // Safe, and contrived
+assert.custom('myVar', 5, {}); // AssertionError: predicate should be of type function
+assert.custom('myVar', 5, value => value === 6); // AssertionError: myVar should match predicate
+```
 
 ### String
-The string assertion utility has some useful functions for validating the contract on string parameters
+The string assertion utility has some useful functions for validating the contract on string parameters.
 ```js
 assert.string('myVar', 'test');
 ```
@@ -178,13 +205,13 @@ assert.array('myVar', [1, 2, 3]).contains(4); // AssertionError: myVar should co
 ```
 
 ### Function
-Functions are another of those simple types in javascript, so currently no useful assertions can be made of functions
+Functions are another of those simple types in js, so currently no useful assertions can be made of functions
 ```js
 assert.function('myVar', function() {});
 ```
 
 ### Date
-The date assertion helps you validate certain properties against javascript dates.
+The date assertion helps you validate certain properties against js dates.
 ```js
 assert.date('myVar', new Date('January 1, 1970'));
 ```

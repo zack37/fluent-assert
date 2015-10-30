@@ -449,4 +449,26 @@ describe('Assert', function() {
 
   });
 
+  describe('#defined', function() {
+
+    it('should not throw an error for a null argument', function() {
+      expect(function() {
+        assert.defined('test', null);
+      }).to.not.throw('test should be defined');
+    });
+
+    it('should not throw an error for a defined object', function() {
+      expect(function() {
+        assert.defined('test', {});
+      }).to.not.throw('test should be defined');
+    });
+
+    it('should throw an error for undefined argument', function() {
+      expect(function() {
+        assert.defined('test', undefined);
+      }).to.throw('test should be defined');
+    });
+
+  });
+
 });

@@ -153,6 +153,15 @@ class Assert {
     }
   };
 
+  defined(name, value) {
+    if(value === undefined) {
+      common.error(value,
+      `${name} to be defined`,
+      `${name} should be defined`,
+      'defined');
+    }
+  };
+
   /**
    * Asserts if the value being passed in is a number
    * @param {String} name - The name of the value being tested
