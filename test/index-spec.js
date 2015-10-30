@@ -329,6 +329,18 @@ describe('Assert', function() {
       }).to.throw('test should be an array');
     });
 
+    it('should throw an assertion error for null values', function() {
+      expect(function() {
+        assert.array('test', null);
+      }).to.throw('test should be an array');
+    });
+
+    it('should throw an assertion error for undefined values', function() {
+      expect(function() {
+        assert.array('test', undefined);
+      }).to.throw('test should be an array');
+    });
+
   });
 
   describe('#func', function() {

@@ -53,7 +53,7 @@ function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
     throw new AssertionError({
       message: `${name} should be an array`,
-      actual: value.toString(),
+      actual: value,
       expected: 'Array',
       operation: 'array',
       stackStartFunction: 'array'
