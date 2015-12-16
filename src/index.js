@@ -1,40 +1,24 @@
 import common from './common-assert'
 
-import NumberAssert from './number-assert'
-import StringAssert from './string-assert'
-import ObjectAssert from './object-assert'
-import ArrayAssert from './array-assert'
-import DateAssert from './date-assert'
+import numberAssert from './number-assert'
+import stringAssert from './string-assert'
+import objectAssert from './object-assert'
+import arrayAssert from './array-assert'
+import dateAssert from './date-assert'
 
-let _isOptional = false;
-
-class Assert {
-  constructor() {
-    Object.defineProperties(this, {
-      isOptional: {
-        enumerable: true,
-        configurable: false,
-        get: function() {
-          let retVal = _isOptional;
-          _isOptional = false;
-          return retVal;
-        },
-        set: function(value) {
-          _isOptional = value
-        }
-      }
-    });
-  }
+export default (() => {
+  let assert = {};
+  let isOptional = false;
 
   /**
    * Sets the optional flag allowing for null or undefined values
    * Flag only stays set for one assertion chain
    * @returns {Assert}
    */
-  optional() {
-    this.isOptional = true;
-    return this;
-  }
+  assert.optional = () => {
+    isOptional = true;
+    return assert;
+  };
 
   /**
    * Asserts if the value being passed in is a number
@@ -43,10 +27,10 @@ class Assert {
    * @returns {NumberAssert|exports|module.exports}
    * @throws {AssertionError} - If value is not a number
    */
-  number(name, value) {
-    return common.optional(this.isOptional, value, () =>
-      new NumberAssert(name, value)
-    );
+  assert.number = (name, value) => {
+    let na = numberAssert(name, value, isOptional);
+    isOptional = false;
+    return na;
   };
 
   /**
@@ -56,10 +40,10 @@ class Assert {
    * @returns {StringAssert|exports|module.exports}
    * @throws {AssertionError} - If value is not a string
    */
-  string(name, value) {
-    return common.optional(this.isOptional, value, () =>
-      new StringAssert(name, value)
-    );
+  assert.string = (name, value) => {
+    let sa = stringAssert(name, value, isOptional);
+    isOptional = false;
+    return sa;
   };
 
   /**
@@ -68,8 +52,8 @@ class Assert {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a boolean
    */
-  bool(name, value) {
-    common.optional(this.isOptional, value, () =>
+  assert.bool = (name, value) => {
+    common.optional(isOptional, value, () =>
       common.typeCheck(name, value, 'boolean')
     );
   };
@@ -80,8 +64,8 @@ class Assert {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a Buffer
    */
-  buffer(name, value) {
-    common.optional(this.isOptional, value, () => {
+  assert.buffer = (name, value) => {
+    common.optional(isOptional, value, () => {
       if(!Buffer.isBuffer(value)) {
         common.error(value, 'Buffer', `${name} should be a buffer`, 'buffer');
       }
@@ -95,10 +79,10 @@ class Assert {
    * @returns {ObjectAssert|exports|module.exports}
    * @throws {AssertionError} - If value is not an object
    */
-  object(name, value) {
-    return common.optional(this.isOptional, value, () =>
-      new ObjectAssert(name, value)
-    );
+  assert.object = (name, value) => {
+    let oa = objectAssert(name, value, isOptional);
+    isOptional = false;
+    return oa;
   };
 
   /**
@@ -108,10 +92,10 @@ class Assert {
    * @returns {ArrayAssert|exports|module.exports}
    * @throws {AssertionError} - If value is not an array
    */
-  array(name, value) {
-    return common.optional(this.isOptional, value, () =>
-      new ArrayAssert(name, value)
-    );
+  assert.array = (name, value) => {
+    let aa = arrayAssert(name, value, isOptional);
+    isOptional = false;
+    return aa;
   };
 
   /**
@@ -120,8 +104,8 @@ class Assert {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a function
    */
-  func(name, value) {
-    common.optional(this.isOptional, value, () =>
+  assert.func = (name, value) => {
+    common.optional(isOptional, value, () =>
       common.typeCheck(name, value, 'function')
     );
   };
@@ -132,10 +116,10 @@ class Assert {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a date
    */
-  date(name, value) {
-    return common.optional(this.isOptional, value, () =>
-      new DateAssert(name ,value)
-    );
+  assert.date = (name, value) => {
+    let da = dateAssert(name, value, isOptional);
+    isOptional = false;
+    return da;
   };
 
   /**
@@ -144,7 +128,7 @@ class Assert {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is null or undefined
    */
-  ok(name, value) {
+  assert.ok = (name, value) => {
     if(value === undefined || value === null) {
       common.error(value,
         `${name} to not be undefined or null`,
@@ -153,12 +137,12 @@ class Assert {
     }
   };
 
-  defined(name, value) {
+  assert.defined = (name, value) => {
     if(value === undefined) {
       common.error(value,
-      `${name} to be defined`,
-      `${name} should be defined`,
-      'defined');
+        `${name} to be defined`,
+        `${name} should be defined`,
+        'defined');
     }
   };
 
@@ -169,7 +153,7 @@ class Assert {
    * @param {Function} predicate - Predicate function to test value against
    * @throws {AssertionError} - If value does not match the predicate
    */
-  custom(name, value, predicate) {
+  assert.custom = (name, value, predicate) => {
     common.typeCheck('predicate', predicate, 'function');
 
     if(!predicate(value)) {
@@ -179,6 +163,6 @@ class Assert {
         'custom');
     }
   };
-}
 
-export default new Assert()
+  return assert;
+})()

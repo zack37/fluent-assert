@@ -2,23 +2,10 @@
 
 var expect = require('chai').expect;
 var assert = require('../src/index');
-var NumberAssert = require('../src/number-assert');
-var StringAssert = require('../src/string-assert');
-var ObjectAssert = require('../src/object-assert');
-var ArrayAssert = require('../src/array-assert');
-var DateAssert = require('../src/date-assert');
 
 describe('Assert', function() {
 
   describe('#optional', function() {
-
-    it('should not keep isOptional true after each assertion chain', function() {
-      assert.optional().bool('test', undefined);
-      expect(assert.isOptional).to.be.false;
-      expect(function() {
-        assert.bool('test', undefined);
-      }).to.throw('test should be of type boolean');
-    });
 
     describe('boolean', function() {
 
@@ -136,6 +123,16 @@ describe('Assert', function() {
         }).to.throw('test should be of type number');
       });
 
+      it('should not throw for chaining of optional assert of null', function() {
+        expect(() => assert.optional().number('test', null).equal(5))
+          .to.not.throw();
+      });
+
+      it('should not throw for chaining of optional assert of undefined', function() {
+        expect(() => assert.optional().number('test', undefined).equal(5))
+          .to.not.throw();
+      });
+
     });
 
     describe('object', function() {
@@ -162,6 +159,16 @@ describe('Assert', function() {
         expect(function() {
           assert.optional().object('test', 0);
         }).to.throw('test should be of type object');
+      });
+
+      it('should not throw for chaining of optional assert of null', function() {
+        expect(() => assert.optional().object('test', null).hasMember('anything'))
+          .to.not.throw();
+      });
+
+      it('should not throw for chaining of optional assert of undefined', function() {
+        expect(() => assert.optional().object('test', undefined).hasMember('anything'))
+          .to.not.throw();
       });
 
     });
@@ -192,6 +199,16 @@ describe('Assert', function() {
         }).to.throw('test should be of type string');
       });
 
+      it('should not throw for chaining of optional assert of null', function() {
+        expect(() => assert.optional().string('test', null).notEmpty())
+          .to.not.throw();
+      });
+
+      it('should not throw for chaining of optional assert of undefined', function() {
+        expect(() => assert.optional().object('test', undefined).hasMember('anything'))
+          .to.not.throw();
+      });
+
     });
 
     describe('array', function() {
@@ -219,6 +236,17 @@ describe('Assert', function() {
           assert.optional().array('test', 0);
         }).to.throw('test should be an array');
       });
+
+      it('should not throw for chaining of optional assert of null', function() {
+        expect(() => assert.optional().array('test', null).of('number'))
+          .to.not.throw();
+      });
+
+      it('should not throw for chaining of optional assert of undefined', function() {
+        expect(() => assert.optional().array('test', undefined).of('number'))
+          .to.not.throw();
+      });
+
     });
 
     describe('date', function() {
@@ -247,6 +275,16 @@ describe('Assert', function() {
         }).to.throw('test should be of type Date');
       });
 
+      it('should not throw for chaining of optional assert of null', function() {
+        expect(() => assert.optional().date('test', null).dayOf(1))
+          .to.not.throw();
+      });
+
+      it('should not throw for chaining of optional assert of undefined', function() {
+        expect(() => assert.optional().date('test', undefined).dayOf(1))
+          .to.not.throw();
+      });
+
     });
 
   });
@@ -262,7 +300,7 @@ describe('Assert', function() {
 
     it('should return a number validator', function() {
         var validator = assert.number('test', 0);
-        expect(validator).to.be.an.instanceof(NumberAssert);
+        expect(validator).to.be.an.instanceof(Object);
     });
 
     it('should throw an error when creating a number validator for not a number', function() {
@@ -283,7 +321,7 @@ describe('Assert', function() {
 
     it('should return a string validator', function() {
       var validator = assert.string('test', 'test');
-      expect(validator).to.be.an.instanceof(StringAssert);
+      expect(validator).to.be.an.instanceof(Object);
     });
 
     it('should throw an error when creating a string validator for not a string', function() {
@@ -316,11 +354,6 @@ describe('Assert', function() {
       expect(function() {
         assert.array('test', []);
       }).to.not.throw('test should be an array');
-    });
-
-    it('should return an ArrayAssert', function() {
-      var aa = assert.array('test', []);
-      expect(aa).to.be.an.instanceof(ArrayAssert);
     });
 
     it('should throw an error when creating an array validator for not an array', function() {
@@ -407,7 +440,7 @@ describe('Assert', function() {
 
     it('should return an ObjectAssert', function() {
       var oa = assert.object('test', {});
-      expect(oa).to.be.an.instanceof(ObjectAssert);
+      expect(oa).to.be.an.instanceof(Object);
     });
 
     it('should not throw an error when value is an object', function() {
@@ -428,7 +461,7 @@ describe('Assert', function() {
 
     it('should return a DateAssert', function() {
       var da = assert.date('test', new Date());
-      expect(da).to.be.an.instanceOf(DateAssert);
+      expect(da).to.be.an.instanceOf(Object);
     });
 
     it('should not throw an error when value is a date', function() {

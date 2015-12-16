@@ -5,13 +5,15 @@
   "repository": "http://github.com/zack37/fluent-assert",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register test/*-spec.js -R list",
+    "test": "mocha --compilers js:babel/register test/*-spec.js",
     "tw": "npm test -- --watch --bail -R min",
     "prepublish": "npm run compile",
     "compile": "babel -d lib/ src/",
     "lint": "esw --quiet",
+    "preversion": "./scripts/check_branch.sh",
+    "postversion": "git push origin master --tags",
     "coverage": "istanbul cover node_modules/.bin/_mocha -- -R list --compilers js:babel/register test/*-spec.js",
-    "ci": "npm run lint && npm run coverage && istanbul check-coverage --statements 95 --functions 95 --branches 95 --lines 95"
+    "ci": "npm run lint && npm run coverage && istanbul check-coverage -s 95 -f 95 -b 95 -l 95"
   },
   "keywords": [
     "assert",
@@ -26,6 +28,7 @@
     "eslint": "^1.7.3",
     "eslint-watch": "^2.1.2",
     "istanbul": "^0.4.0",
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.3",
+    "wallaby-webpack": "0.0.10"
   }
 }
