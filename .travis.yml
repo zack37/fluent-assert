@@ -15,6 +15,7 @@ script:
 - npm run ci
 deploy:
   provider: npm
+  email: "zack.t.smith37@gmail.com"
   on:
     tags: true
   api_key:
