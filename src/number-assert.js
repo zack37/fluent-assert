@@ -1,5 +1,5 @@
 import common from './common-assert'
-import AssertBase from './assert-base.js'
+
 
 /**
  * Number Assertions
@@ -7,13 +7,13 @@ import AssertBase from './assert-base.js'
  * @public
  * @param name - The name of the variable being tested
  * @param value - The value being tested
+ * @param optional
  * @throws {AssertionError} - Throws error if value is not a number
  */
-export default class NumberAssert extends AssertBase {
-  constructor(name, value) {
-    common.typeCheck(name, value, 'number');
-    super(name, value);
-  }
+export default (name, value, optional) => {
+  common.optional(optional, value, () => common.typeCheck(name, value, 'number'));
+  let assert = {};
+  let emptyFunction = () => assert;
 
   /**
    * Tests value against a minimum threshold
@@ -21,15 +21,15 @@ export default class NumberAssert extends AssertBase {
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is less than min
    */
-  min(min) {
-    if(this.value < min) {
-      common.error(this.value,
+  assert.min = common.optional(optional, value, () => min => {
+    if(value < min) {
+      common.error(value,
         min,
-        `${this.name} should be greater than ${min}`,
+        `${name} should be greater than ${min}`,
         'min');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests value against a maximum threshold
@@ -37,15 +37,15 @@ export default class NumberAssert extends AssertBase {
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value if greater than max
    */
-  max(max) {
-    if(this.value > max) {
-      common.error(this.value,
+  assert.max = common.optional(optional, value, () => max => {
+    if(value > max) {
+      common.error(value,
         max,
-        `${this.name} should be less than ${max}`,
+        `${name} should be less than ${max}`,
         'max');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests value against a minimum and maximum threshold
@@ -54,45 +54,45 @@ export default class NumberAssert extends AssertBase {
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is less than lower or greater than upper
    */
-  range(lower, upper) {
-    if(this.value < lower || this.value > upper) {
-      common.error(this.value,
+  assert.range = common.optional(optional, value, () => (lower, upper) => {
+    if(value < lower || value > upper) {
+      common.error(value,
         `(${lower}-${upper})`,
-        `${this.name} should be between ${lower} and ${upper}`,
+        `${name} should be between ${lower} and ${upper}`,
         'range');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value is an even number
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is not even
    */
-  even() {
-    if(this.value % 2 === 1) {
-      common.error(this.value,
+  assert.even = common.optional(optional, value, () => () => {
+    if(value % 2 === 1) {
+      common.error(value,
         'even number',
-        `${this.name} should be even`,
+        `${name} should be even`,
         'even');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value is an odd number
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is not odd
    */
-  odd() {
-    if(this.value % 2 === 0) {
-      common.error(this.value,
+  assert.odd = common.optional(optional, value, () => () => {
+    if(value % 2 === 0) {
+      common.error(value,
         'odd number',
-        `${this.name} should be odd`,
+        `${name} should be odd`,
         'odd');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests value against another number for equality
@@ -100,15 +100,15 @@ export default class NumberAssert extends AssertBase {
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is not equal to compare
    */
-  equal(compare) {
-    if(this.value !== compare) {
-      common.error(this.value,
+  assert.equal = common.optional(optional, value, () => compare => {
+    if(value !== compare) {
+      common.error(value,
         compare,
-        `${this.name} should be equal to ${compare}`,
+        `${name} should be equal to ${compare}`,
         'equal');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value is ina  subset of numbers
@@ -116,14 +116,16 @@ export default class NumberAssert extends AssertBase {
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is not contained in values
    */
-  in(values) {
+  assert.in = common.optional(optional, value, () => values => {
     common.arrayCheck('values', values);
-    if(values.indexOf(this.value) < 0) {
-      common.error(this.value,
+    if(values.indexOf(value) < 0) {
+      common.error(value,
         `value in ${values.toString()}`,
-        `${this.name} should be in ${values.toString()}`,
+        `${name} should be in ${values.toString()}`,
         'in');
     }
-    return this;
-  }
-}
+    return assert;
+  }, emptyFunction);
+
+  return assert;
+};

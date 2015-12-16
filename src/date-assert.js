@@ -1,5 +1,4 @@
 import common from './common-assert'
-import AssertBase from './assert-base'
 
 const shortMonthNames = [
   'Jan',
@@ -36,14 +35,13 @@ const fullMonthNames = [
  * @public
  * @param {String} name - The name of the variable being tested
  * @param {Date} value - The value being tested
+ * @param optional
  * @throws {AssertionError} - Throws error if value is not a Date
  */
-export default class DateAssert extends AssertBase {
-  constructor(name, value) {
-    common.toStringCheck(name, value, 'Date');
-
-    super(name, value);
-  }
+export default (name, value, optional) => {
+  common.optional(optional, value, () => common.toStringCheck(name, value, 'Date'));
+  let assert = {};
+  let emptyFunction = () => assert;
 
   /**
    * Tests if value occurs before the supplied date
@@ -51,15 +49,15 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} - Throws error if value occurs after date
    */
-  before(date) {
-    if (this.value < date) {
-      common.error(this.value,
-        `Date before ${this.value}`,
-        `${this.name} should occur before ${date}`,
+  assert.before = common.optional(optional, value, () => date => {
+    if (value < date) {
+      common.error(value,
+        `Date before ${value}`,
+        `${name} should occur before ${date}`,
         'before');
     }
-    return this;
-  };
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value occurs after the supplied date
@@ -67,15 +65,15 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} Throws error if value occurs before date
    */
-  after(date) {
-    if (this.value > date) {
-      common.error(this.value,
-        `Date after ${this.value}`,
-        `${this.name} should occur after ${date}`,
+  assert.after = common.optional(optional, value, () => date => {
+    if (value > date) {
+      common.error(value,
+        `Date after ${value}`,
+        `${name} should occur after ${date}`,
         'after');
     }
-    return this;
-  };
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value occurs between lower and upper
@@ -84,15 +82,15 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} - Throws error if value is outside of lower - upper range
    */
-  within(lower, upper) {
-    if (this.value < lower || this.value > upper) {
-      common.error(this.value,
+  assert.within = common.optional(name, value, () => (lower, upper) => {
+    if (value < lower || value > upper) {
+      common.error(value,
         `Date within ${lower} and ${upper}`,
-        `${this.name} should be within ${lower} and ${upper}`,
+        `${name} should be within ${lower} and ${upper}`,
         'within');
     }
-    return this;
-  };
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if values day is the same as the day supplied
@@ -100,16 +98,15 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} - Throws error if values day does not equal day
    */
-  dayOf(day) {
-    if (this.value.getDate() !== parseInt(day)) {
-      common.error(this.value,
+  assert.dayOf = common.optional(name, value, () => day => {
+    if (value.getDate() !== parseInt(day)) {
+      common.error(value,
         day,
-        `${this.name} should occur on day ${day}`,
+        `${name} should occur on day ${day}`,
         'dayOf');
     }
-    return this;
-  };
-
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if values month is the same as the month supplied
@@ -119,36 +116,35 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} - Throws error if values month does not equal month
    */
-  monthOf(month) {
+  assert.monthOf = common.optional(optional, value, () => month => {
     if (common.isType(month, 'string')) {
       if (month.length === 3) {
-        let short = shortMonthNames[ this.value.getMonth() ];
+        let short = shortMonthNames[ value.getMonth() ];
         if (short !== month) {
-          common.error(this.value,
+          common.error(value,
             month,
-            `${this.name} should occur on month ${month}`,
+            `${name} should occur on month ${month}`,
             'monthOf');
         }
       }
       if (month.length > 3) {
-        let long = fullMonthNames[ this.value.getMonth() ];
+        let long = fullMonthNames[ value.getMonth() ];
         if (long !== month) {
-          common.error(this.value,
+          common.error(value,
             month,
-            `${this.name} should occur on month ${month}`,
+            `${name} should occur on month ${month}`,
             'monthOf');
         }
       }
     }
-    else if (this.value.getMonth() !== parseInt(month)) {
-      common.error(this.value,
+    else if (value.getMonth() !== parseInt(month)) {
+      common.error(value,
         month,
-        `${this.name} should occur on month ${month}`,
+        `${name} should occur on month ${month}`,
         'monthOf');
     }
-    return this;
-  };
-
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if values year is the same as the year supplied
@@ -156,13 +152,15 @@ export default class DateAssert extends AssertBase {
    * @returns {DateAssert}
    * @throws {AssertionError} - Throws error if values year does not equal year
    */
-  yearOf(year) {
-    if (this.value.getFullYear() !== parseInt(year)) {
-      common.error(this.value,
+  assert.yearOf = common.optional(optional, value, () => year => {
+    if (value.getFullYear() !== parseInt(year)) {
+      common.error(value,
         year,
-        `${this.name} should occur on year ${year}`,
+        `${name} should occur on year ${year}`,
         'yearOf');
     }
-    return this;
-  };
-}
+    return assert;
+  }, emptyFunction);
+
+  return assert;
+};

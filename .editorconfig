@@ -8,9 +8,11 @@ indent_style = space
 trim_trailing_whitespace = true
 
 [*.{js,json}]
-indent_size = 2
 spaces_around_brackets = inside
 indent_brace_style = K&R
+
+[*.{js,json,md,sh}]
+indent_size = 2
 
 [*.js]
 max_line_length = 80

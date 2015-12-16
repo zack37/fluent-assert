@@ -1,5 +1,4 @@
 import common from './common-assert'
-import AssertBase from './assert-base'
 
 /**
  * String assertions
@@ -7,14 +6,13 @@ import AssertBase from './assert-base'
  * @public
  * @param name - The name of the variable being tested
  * @param value - The value being tested
+ * @param optional
  * @throws {AssertionError} - Throws error if value is not a string
  */
-export default class StringAssert extends AssertBase {
-  constructor(name, value) {
-    common.typeCheck(name, value, 'string');
-
-    super(name, value)
-  }
+export default (name, value, optional) => {
+  common.optional(optional, value, () => common.typeCheck(name, value, 'string'));
+  let assert = {};
+  let emptyFunction = () => assert;
 
   /**
    * Tests value against a regular expression
@@ -23,36 +21,36 @@ export default class StringAssert extends AssertBase {
    * @throws {AssertionError} - Throws error if value does not match supplied
    * regular expression
    */
-  matches(regexp) {
+  assert.matches = common.optional(optional, value, () => regexp => {
     if (!(regexp instanceof RegExp)) {
-      common.error(this.value,
+      common.error(value,
         regexp.toString(),
         'parameter regexp should be of type RegExp',
         regexp.toString(), 'matches');
     }
-    if (!regexp.test(this.value)) {
-      common.error(this.value,
+    if (!regexp.test(value)) {
+      common.error(value,
         regexp.toString(),
-        `${this.name} should match pattern ${regexp.toString()}`,
+        `${name} should match pattern ${regexp.toString()}`,
         'matches');
     }
-    return this;
-  };
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value is an empty string
    * @returns {StringAssert}
    * @throws {AssertionError} - Throws error if value is an empty string
    */
-  notEmpty() {
-    if (this.value === '') {
-      common.error(this.value,
+  assert.notEmpty = common.optional(optional, value, () => () => {
+    if (value === '') {
+      common.error(value,
         'non empty string',
-        `${this.name} should not be empty`,
+        `${name} should not be empty`,
         'notEmpty');
     }
-    return this;
-  };
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests is value contains only whitespace characters
@@ -60,13 +58,15 @@ export default class StringAssert extends AssertBase {
    * @throws {AssertionError} - Throws error if value contains nothing but white
    * space characters or is empty
    */
-  notWhiteSpace() {
-    if (/^\s*$/.test(this.value)) {
-      common.error(this.value,
+  assert.notWhiteSpace = common.optional(optional, value, () => () => {
+    if (/^\s*$/.test(value)) {
+      common.error(value,
         'non white space only string',
-        `${this.name} should not be whitespace`,
+        `${name} should not be whitespace`,
         'notWhiteSpace');
     }
-    return this;
-  };
-}
+    return assert;
+  }, emptyFunction);
+
+  return assert;
+};

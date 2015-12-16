@@ -1,5 +1,4 @@
 import common from './common-assert'
-import AssertBase from './assert-base'
 
 /**
  * Object Assertions
@@ -7,13 +6,13 @@ import AssertBase from './assert-base'
  * @public
  * @param {String} name - The name of the value being tested
  * @param {Object} value - The value being tested
+ * @param optional
  * @throws {AssertionError} - Throws error if value is not an Object
  */
-export default class ObjectAssert extends AssertBase {
-  constructor(name, value) {
-    super(name, value);
-    common.typeCheck(name, value, 'object');
-  }
+export default (name, value, optional) => {
+  common.optional(optional, value, () => common.typeCheck(name, value, 'object'));
+  let assert = {};
+  let emptyFunction = () => assert;
 
   /**
    * Tests value has the specified member. Properties and Functions included
@@ -21,15 +20,15 @@ export default class ObjectAssert extends AssertBase {
    * @returns {ObjectAssert}
    * @throws {AssertionError} - Throws error if value does not have member
    */
-  hasMember(member) {
-    if(!this.value[member]) {
-      common.error(this.value,
+  assert.hasMember = common.optional(optional, value, () => member => {
+    if(!value[member]) {
+      common.error(value,
         member,
-        `${this.name} should have member named ${member}`,
+        `${name} should have member named ${member}`,
         'hasMember');
     }
-    return this;
-  }
+    return assert;
+  }, emptyFunction);
 
   /**
    * Tests if value is an instance of type
@@ -37,13 +36,16 @@ export default class ObjectAssert extends AssertBase {
    * @returns {ObjectAssert}
    * @throws {AssertionError} - Throws error if value is not an instance of type
    */
-  instanceOf(type) {
-    if(!(this.value instanceof type)) {
-      common.error(this.value,
+  assert.instanceOf = common.optional(optional, value, () => type => {
+    if(!(value instanceof type)) {
+      common.error(value,
         type,
-        `${this.name} should be an instance of ${type}`,
+        `${name} should be an instance of ${type}`,
         'instanceOf');
     }
-    return this;
-  }
-}
+    return assert;
+  }, emptyFunction);
+
+  return assert;
+};
+

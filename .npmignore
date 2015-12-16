@@ -6,4 +6,5 @@ coverage/
 .eslint*
 .travis.yml
 CONTRIBUTING.md
-wallaby.json
+wallaby.config.js
+scripts/

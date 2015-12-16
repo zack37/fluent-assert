@@ -22,9 +22,9 @@ function isType(value, type) {
  */
 function error(actual, expected, message, func) {
   throw new AssertionError({
-    message: message,
-    actual: actual,
-    expected: expected,
+    message,
+    actual,
+    expected,
     operation: func,
     stackStartFunction: func
   });
@@ -39,7 +39,10 @@ function error(actual, expected, message, func) {
  */
 function typeCheck(name, value, type) {
   if(!isType(value, type)) {
-    error(typeof value, type, `${name} should be of type ${type}`, 'type');
+    error(typeof value,
+      type,
+      `${name} should be of type ${type}`,
+      'type');
   }
 }
 
@@ -51,13 +54,10 @@ function typeCheck(name, value, type) {
  */
 function arrayCheck(name, value) {
   if(!Array.isArray(value)) {
-    throw new AssertionError({
-      message: `${name} should be an array`,
-      actual: value,
-      expected: 'Array',
-      operation: 'array',
-      stackStartFunction: 'array'
-    });
+    error(value,
+      'Array',
+      `${name} should be an array`,
+      'arrayCheck');
   }
 }
 
@@ -66,12 +66,13 @@ function arrayCheck(name, value) {
  * @param {Boolean} isOptional - Whether or not to run the callback
  * @param {Object} value - value to check
  * @param {Function} cb - Callback to invoke if conditions are met
+ * @param {*} [fallback] - Fallback value if optional value checking fails
  * @returns {*} - Value of callback function
  */
-function optional(isOptional, value, cb) {
-  if(!isOptional || (value !== null && value !== undefined)) {
-    return cb();
-  }
+function optional(isOptional, value, cb, fallback) {
+  return !isOptional || (value !== null && value !== undefined)
+    ? cb()
+    : fallback;
 }
 
 /**
