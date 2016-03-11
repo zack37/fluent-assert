@@ -59,6 +59,13 @@ assert.custom('myVar', 5, {}); // AssertionError: predicate should be of type fu
 assert.custom('myVar', 5, value => value === 6); // AssertionError: myVar should match predicate
 ```
 
+#### #optional()
+Allows all type assertions (not including those mentioned above) to allow undefined values. The optional flag will be applied throughout the entire assertion chain, so you can still make an assertion without if the value is present
+```js
+assert.optional().string(undefined).matches(/[A-Z]*/); // Safe
+```
+*Note* Once the optional function has been called, the chain will no longer have an optional function, so something like `assert.optional().optioanl()` will result in an error.
+
 ### String
 The string assertion utility has some useful functions for validating the contract on string parameters.
 ```js

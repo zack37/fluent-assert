@@ -7,6 +7,12 @@ describe('Assert', function() {
 
   describe('#optional', function() {
 
+    it('should not allow multiple calls to optional', () => {
+      expect(function() {
+        assert.optional().optional();
+      }).to.throw('assert.optional(...).optional is not a function');
+    });
+
     describe('boolean', function() {
 
       it('should not throw an error for an undefined argument', function() {
