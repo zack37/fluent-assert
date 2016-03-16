@@ -37,7 +37,7 @@ function baseAssertGenerator(isOptional) {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a boolean
    */
-  assert.bool = (name, value) => {
+  assert.bool = assert.boolean = (name, value) => {
     common.optional(isOptional, value, () =>
       common.typeCheck(name, value, 'boolean')
     );
@@ -85,7 +85,7 @@ function baseAssertGenerator(isOptional) {
    * @param {Object} value - The value being tested
    * @throws {AssertionError} - If value is not a function
    */
-  assert.func = (name, value) => {
+  assert.func = assert.function = (name, value) => {
     common.optional(isOptional, value, () =>
       common.typeCheck(name, value, 'function')
     );
@@ -126,7 +126,7 @@ function baseAssertGenerator(isOptional) {
   };
 
   /**
-   * Asserts if the value being passed in is a number
+   * Asserts if the value being passed in matches the given predicate function
    * @param {String} name - The name of the value being tested
    * @param {Object} value - The value being tested
    * @param {Function} predicate - Predicate function to test value against

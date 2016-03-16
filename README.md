@@ -64,7 +64,7 @@ Allows all type assertions (not including those mentioned above) to allow undefi
 ```js
 assert.optional().string(undefined).matches(/[A-Z]*/); // Safe
 ```
-*Note* Once the optional function has been called, the chain will no longer have an optional function, so something like `assert.optional().optioanl()` will result in an error.
+*Note* Once the optional function has been called, the chain will no longer have an optional function, so something like `assert.optional().optional()` will result in an error.
 
 ### String
 The string assertion utility has some useful functions for validating the contract on string parameters.
@@ -154,6 +154,15 @@ Validates your value is within an array of given values. Throws an assertion err
 ```js
 assert.number('myVar', 10).in([2, 4, 6, 8 ,10]); // Safe
 assert.number('myVar', 10).in([1, 3, 5, 7, 9]); // AssertionError: myVar should be in [1, 3, 5, 7, 9]
+```
+
+#### #finite()
+Validates your value is a number of a finite value. Throws an assertion error otherwise
+```js
+assert.number('myVar', 10).finite(); // Safe
+assert.number('myVar', Infinity).finite() // AssertionError: myVar should be a finite number
+assert.number('myVar', -Infinity).finite() // AssertionError: myVar should be a finite number
+assert.number('myVar', NaN).finite() // AssertionError: myVar should be a finite number
 ```
 
 ### Boolean

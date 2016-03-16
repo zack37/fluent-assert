@@ -3,8 +3,8 @@ import common from './common-assert'
 export default (name, value, optional) => {
   common.optional(optional, value, () => common.arrayCheck(name, value));
 
-  let assert = {};
-  let emptyFunction = () => assert;
+  const assert = {};
+  const emptyFunction = () => assert;
 
   assert.of = common.optional(optional, value, () => type => {
     let inner = common.isType(type, 'string')

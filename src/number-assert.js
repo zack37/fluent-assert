@@ -127,5 +127,15 @@ export default (name, value, optional) => {
     return assert;
   }, emptyFunction);
 
+  assert.finite = common.optional(optional, value, () => () => {
+    if(isNaN(value) || !isFinite(value)) {
+      common.error(value,
+        `${value} to be a finite number`,
+        `${name} should be a finite number`,
+        'finite');
+    }
+    return assert;
+  }, emptyFunction);
+
   return assert;
 };

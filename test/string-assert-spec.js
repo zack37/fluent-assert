@@ -1,7 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-var expect = require('chai').expect;
-var stringAssert = require('../src/string-assert');
+import stringAssert from '../src/string-assert';
 
 describe('stringAssert', function() {
 

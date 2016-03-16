@@ -8,3 +8,4 @@ coverage/
 CONTRIBUTING.md
 wallaby.config.js
 scripts/
+.babelrc

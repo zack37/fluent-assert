@@ -1,13 +1,12 @@
 {
-  "env":{
+  "env": {
     "node": true,
-    "amd": true,
     "es6": true
   },
-  "ecmaFeatures": {
-    "modules": true
+  "parserOptions": {
+    "sourceType": "module"
   },
-  "rules":{
+  "rules": {
     "block-scoped-var": 2,
     "no-use-before-define": 2,
     "space-in-parens": [2, "never"],
