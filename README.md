@@ -3,7 +3,7 @@
 
 fluent-assert is meant to be a better way of specifying your contract signatures, allowing you to fluently make your assertions for not only types, but different properties of those types.
 
-## Getting Started (Recommended Node >=4, works with iojs >=2.5)
+## Getting Started (Required Node >=4)
 First install through npm
 
 `npm install --save fluent-assert`
