@@ -1,7 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-var expect = require('chai').expect;
-var dateAssert = require('../src/date-assert');
+import dateAssert from '../src/date-assert';
 
 describe('dateAssert', function() {
 

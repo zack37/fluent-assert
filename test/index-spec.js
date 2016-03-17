@@ -1,19 +1,16 @@
-'use strict';
+import { expect } from 'chai';
 
-var expect = require('chai').expect;
-var assert = require('../src/index');
+import assert from '../src';
 
 describe('Assert', function() {
 
   describe('#optional', function() {
 
     it('should not allow multiple calls to optional', () => {
-      expect(function() {
-        assert.optional().optional();
-      }).to.throw('assert.optional(...).optional is not a function');
+      expect(assert.optional().optional).to.be.undefined;
     });
 
-    describe('boolean', function() {
+    describe('bool', function() {
 
       it('should not throw an error for an undefined argument', function() {
         expect(function() {
@@ -75,7 +72,7 @@ describe('Assert', function() {
 
     });
 
-    describe('function', function() {
+    describe('func', function() {
 
       it('should not throw an error for undefined value', function() {
         expect(function() {
@@ -338,7 +335,12 @@ describe('Assert', function() {
 
   });
 
-  describe('#boolean', function() {
+  describe('#bool', function() {
+
+    it('should have alias "boolean"', () => {
+      expect(assert.boolean).to.be.a('function');
+      expect(assert.boolean).to.eql(assert.bool);
+    });
 
     it('should not throw an error when creating a boolean validator for a boolean', function() {
       expect(function() {
@@ -383,6 +385,11 @@ describe('Assert', function() {
   });
 
   describe('#func', function() {
+
+    it('should have alias "function"', () => {
+      expect(assert.function).to.be.a('function');
+      expect(assert.function).to.eql(assert.func);
+    });
 
     it('should throw an error when value if not a function', function() {
       expect(function() {

@@ -9,9 +9,10 @@ const runningMode = process.env.NODE_ENV || 'debug';
  * @param {String} type - The type to test against as a string
  * @returns {boolean}
  */
-function isType(value, type) {
-  return runningMode === 'production' || typeof value === type;
-}
+/* istanbul ignore next */
+const isType = runningMode === 'production'
+  ? () => true
+  : (value, type) => typeof value === type;
 
 /**
  * Helper function to throw assertion error
@@ -20,7 +21,7 @@ function isType(value, type) {
  * @param message - Message for user consumption
  * @param func - Start stack function
  */
-function error(actual, expected, message, func) {
+const error = (actual, expected, message, func) => {
   throw new AssertionError({
     message,
     actual,
@@ -28,7 +29,7 @@ function error(actual, expected, message, func) {
     operation: func,
     stackStartFunction: func
   });
-}
+};
 
 /**
  * Checks value against type using `typeof`
@@ -37,14 +38,15 @@ function error(actual, expected, message, func) {
  * @param {String} type - type to check value against
  * @throws {AssertionError} - Throws error if value is not of type
  */
-function typeCheck(name, value, type) {
+/* istanbul ignore next */
+const typeCheck = (name, value, type) => {
   if(!isType(value, type)) {
     error(typeof value,
       type,
       `${name} should be of type ${type}`,
       'type');
   }
-}
+};
 
 /**
  * Checks if value is an array
@@ -52,14 +54,14 @@ function typeCheck(name, value, type) {
  * @param {Object} value - value to check
  * @throws {AssertionError} - Throws error if value is not an array
  */
-function arrayCheck(name, value) {
+const arrayCheck = (name, value) => {
   if(!Array.isArray(value)) {
     error(value,
       'Array',
       `${name} should be an array`,
       'arrayCheck');
   }
-}
+};
 
 /**
  * Helper wrapper function for optional value checking
@@ -69,11 +71,11 @@ function arrayCheck(name, value) {
  * @param {*} [fallback] - Fallback value if optional value checking fails
  * @returns {*} - Value of callback function
  */
-function optional(isOptional, value, cb, fallback) {
+const optional = (isOptional, value, cb, fallback) => {
   return !isOptional || (value !== null && value !== undefined)
     ? cb()
     : fallback;
-}
+};
 
 /**
  * Similar to typeCheck, but uses the Object toString to grab the type for
@@ -84,7 +86,7 @@ function optional(isOptional, value, cb, fallback) {
  * @param {String} expectedType - The expected type as a string
  * @throws {AssertionError} - Throws error if value is not of type expectedType
  */
-function toStringCheck(name, value, expectedType) {
+const toStringCheck = (name, value, expectedType) => {
   let objToString = Object.prototype.toString.call(value);
   let regexp = new RegExp(expectedType, 'i');
   if(!regexp.test(objToString)) {
@@ -93,7 +95,7 @@ function toStringCheck(name, value, expectedType) {
       `${name} should be of type ${expectedType}`,
       'toStringCheck');
   }
-}
+};
 
 export default {
   typeCheck,

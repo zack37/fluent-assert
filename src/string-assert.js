@@ -68,5 +68,15 @@ export default (name, value, optional) => {
     return assert;
   }, emptyFunction);
 
+  assert.uuid = assert.guid = common.optional(optional, value, () => () => {
+    if (!/[a-z0-9]{8}-?[a-z0-9]{4}-?[a-z0-9]{4}-?[a-z0-9]{4}-?[a-z0-9]{12}/i.test(value)) {
+      common.error(value,
+        'a UUID',
+        `${name} should be a UUID`,
+        'uuid');
+    }
+    return assert;
+  }, emptyFunction);
+
   return assert;
 };

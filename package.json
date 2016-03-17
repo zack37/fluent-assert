@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "Fluent assertions for javascript types.",
   "repository": "http://github.com/zack37/fluent-assert",
+  "engines": {
+    "node": ">=4"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register test/*-spec.js",
+    "test": "mocha --compilers js:babel-core/register test/*-spec.js",
     "tw": "npm test -- --watch --bail -R min",
     "prepublish": "npm run compile",
     "compile": "babel -d lib/ src/",
     "lint": "esw --quiet",
     "preversion": "./scripts/check_branch.sh",
     "postversion": "git push origin master --tags",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- -R list --compilers js:babel/register test/*-spec.js",
-    "ci": "npm run lint && npm run coverage && istanbul check-coverage -s 95 -f 95 -b 95 -l 95"
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- -R list --compilers js:babel-core/register test/*-spec.js",
+    "ci": "npm run lint && npm run coverage"
   },
   "keywords": [
     "assert",
@@ -23,12 +26,15 @@
   "author": "Zack Smith",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^5.8.21",
-    "chai": "^3.4.0",
-    "eslint": "^1.7.3",
-    "eslint-watch": "^2.1.2",
-    "istanbul": "^0.4.0",
-    "mocha": "^2.3.3",
-    "wallaby-webpack": "0.0.10"
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.2",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015-node4": "^2.0.3",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "eslint": "^2.4.0",
+    "eslint-watch": "^2.1.10",
+    "istanbul": "1.0.0-alpha.2",
+    "mocha": "^2.4.5"
   }
 }

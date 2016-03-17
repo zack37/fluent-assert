@@ -1,21 +1,18 @@
-var babel = require('babel');
-
 module.exports = function(wallaby) {
   return {
     files: [
-      'src/*.js',
-      'lib/*.js'
+      'src/*.js'
     ],
     tests: [
       'test/*-spec.js'
     ],
     env: {
-      type: 'node'
+      type: 'node',
+      runner: 'node'
     },
+    testFramework: 'mocha',
     compilers: {
-      'src/*.js': wallaby.compilers.babel({
-        babel: babel
-      })
+      '**/*.js': wallaby.compilers.babel()
     }
   };
 };

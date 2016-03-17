@@ -3,7 +3,7 @@
 
 fluent-assert is meant to be a better way of specifying your contract signatures, allowing you to fluently make your assertions for not only types, but different properties of those types.
 
-## Getting Started
+## Getting Started (Required Node >=4)
 First install through npm
 
 `npm install --save fluent-assert`
@@ -60,11 +60,11 @@ assert.custom('myVar', 5, value => value === 6); // AssertionError: myVar should
 ```
 
 #### #optional()
-Allows all type assertions (not including those mentioned above) to allow undefined values. The optional flag will be applied throughout the entire assertion chain, so you can still make an assertion without if the value is present
+Allows all type assertions (not including those mentioned above) to allow undefined values. The optional flag will be applied throughout the entire assertion chain, so you can still make an assertion without the value being present.
 ```js
 assert.optional().string(undefined).matches(/[A-Z]*/); // Safe
 ```
-*Note* Once the optional function has been called, the chain will no longer have an optional function, so something like `assert.optional().optioanl()` will result in an error.
+*Note* Once the optional function has been called, the chain will no longer have an optional function, so something like `assert.optional().optional()` will result in an error.
 
 ### String
 The string assertion utility has some useful functions for validating the contract on string parameters.
@@ -94,6 +94,14 @@ Validates your value is not only white space characters as dictated by JavaScrip
 assert.string('myVar', 'something').notWhiteSpace(); // Safe
 assert.string('myVar', ' something ').notWhiteSpace(); // Safe
 assert.string('myVar', ' ').notWhiteSpace(); // AssertionError: myVar should be a non white space only string
+```
+
+#### #uuid() (also guid())
+Validates your string is a UUID/GUID. Throws an assertion error otherwise.
+```js
+assert.string('myVar', 'a4558b56-af55-47e4-9980-28b29e4f81ef').uuid() // Safe
+assert.string('myVar', 'a4558b56-af55-47e4-9980-28b29e4f81ef').guid() // Safe
+assert.string('myVar', 'definitely-not-a-uuid').uuid() // AssertionError: myVar should be a UUID
 ```
 
 ### Number
@@ -156,10 +164,52 @@ assert.number('myVar', 10).in([2, 4, 6, 8 ,10]); // Safe
 assert.number('myVar', 10).in([1, 3, 5, 7, 9]); // AssertionError: myVar should be in [1, 3, 5, 7, 9]
 ```
 
+#### #finite()
+Validates your value is a number of a finite value. Throws an assertion error otherwise
+```js
+assert.number('myVar', 10).finite(); // Safe
+assert.number('myVar', Infinity).finite() // AssertionError: myVar should be a finite number
+assert.number('myVar', -Infinity).finite() // AssertionError: myVar should be a finite number
+assert.number('myVar', NaN).finite() // AssertionError: myVar should be a finite number
+```
+
+#### #positive()
+Validates your value is a positive number. Throws an assertion error if your value is <= 0
+```js
+assert.number('myVar', 10).positive() // Safe
+assert.number('myVar', -10).positive() // AssertionError: myVar should be a positive number
+assert.number('myVar', 0).positive() // AssertionError: myVar should be a positive number
+```
+
+#### #integer()
+Validate your value is an integer. Throws an assertion error if your value is a float
+```js
+assert.number('myVar', 10).integer() // Safe
+assert.number('myVar', 10.0).integer() // Safe
+assert.number('myVar', 10.1).integer() // AssertionError: myVar should be an float
+```
+
+#### #float()
+Validate your value is a float. Throws an assertion error if your value is evaluated as a whole number
+```js
+assert.number('myVar', 10.1).float() // Safe
+assert.number('myVar', 10).float() // AssertionError: myVar should be a float
+assert.number('myVar', 10.0).float() // AssertionError: myVar should be a float
+```
+
+#### #negative()
+Validates your value is a negative number. Throws an assertion error if your value is >= 0
+```js
+assert.number('myVar', -10).negative() // Safe
+assert.number('myVar', 10).negative() // AssertionError: myVar should be a negative number
+assert.number('myVar', 0).negative() // AssertionError: myVar should be a negative number
+```
+
 ### Boolean
 Since boolean values are so simple, there are no use cases for assertion chains on booleans.
 ```js
 assert.bool('myVar', true); // Safe
+assert.boolean('myVar', true); // Safe
 assert.bool('myVar', {}); // AssertionError: myVar should be of type boolean
 ```
 
@@ -214,6 +264,7 @@ assert.array('myVar', [1, 2, 3]).contains(4); // AssertionError: myVar should co
 ### Function
 Functions are another of those simple types in js, so currently no useful assertions can be made of functions
 ```js
+assert.func('myVar', function() {});
 assert.function('myVar', function() {});
 ```
 
