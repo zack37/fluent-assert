@@ -173,6 +173,22 @@ assert.number('myVar', -10).positive() // AssertionError: myVar should be a posi
 assert.number('myVar', 0).positive() // AssertionError: myVar should be a positive number
 ```
 
+#### #integer()
+Validate your value is an integer. Throws an assertion error if your value is a float
+```js
+assert.number('myVar', 10).integer() // Safe
+assert.number('myVar', 10.0).integer() // Safe
+assert.number('myVar', 10.1).integer() // AssertionError: myVar should be an float
+```
+
+#### #float()
+Validate your value is a float. Throws an assertion error if your value is evaluated as a whole number
+```js
+assert.number('myVar', 10.1).float() // Safe
+assert.number('myVar', 10).float() // AssertionError: myVar should be a float
+assert.number('myVar', 10.0).float() // AssertionError: myVar should be a float
+```
+
 #### #negative()
 Validates your value is a negative number. Throws an assertion error if your value is >= 0
 ```js
