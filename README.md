@@ -96,6 +96,14 @@ assert.string('myVar', ' something ').notWhiteSpace(); // Safe
 assert.string('myVar', ' ').notWhiteSpace(); // AssertionError: myVar should be a non white space only string
 ```
 
+#### #uuid() (also guid())
+Validates your string is a UUID/GUID. Throws an assertion error otherwise.
+```js
+assert.string('myVar', 'a4558b56-af55-47e4-9980-28b29e4f81ef').uuid() // Safe
+assert.string('myVar', 'a4558b56-af55-47e4-9980-28b29e4f81ef').guid() // Safe
+assert.string('myVar', 'definitely-not-a-uuid').uuid() // AssertionError: myVar should be a UUID
+```
+
 ### Number
 The number assertion helps you validate certain properties against numbers.
 ```js
@@ -201,6 +209,7 @@ assert.number('myVar', 0).negative() // AssertionError: myVar should be a negati
 Since boolean values are so simple, there are no use cases for assertion chains on booleans.
 ```js
 assert.bool('myVar', true); // Safe
+assert.boolean('myVar', true); // Safe
 assert.bool('myVar', {}); // AssertionError: myVar should be of type boolean
 ```
 
@@ -255,6 +264,7 @@ assert.array('myVar', [1, 2, 3]).contains(4); // AssertionError: myVar should co
 ### Function
 Functions are another of those simple types in js, so currently no useful assertions can be made of functions
 ```js
+assert.func('myVar', function() {});
 assert.function('myVar', function() {});
 ```
 
