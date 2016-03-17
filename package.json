@@ -1,6 +1,6 @@
 {
   "name": "fluent-assert",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fluent assertions for javascript types.",
   "repository": "http://github.com/zack37/fluent-assert",
   "engines": {
