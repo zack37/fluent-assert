@@ -3,7 +3,7 @@
 
 fluent-assert is meant to be a better way of specifying your contract signatures, allowing you to fluently make your assertions for not only types, but different properties of those types.
 
-## Getting Started
+## Getting Started (Recommended Node >=4, works with iojs >=2.5)
 First install through npm
 
 `npm install --save fluent-assert`
@@ -60,7 +60,7 @@ assert.custom('myVar', 5, value => value === 6); // AssertionError: myVar should
 ```
 
 #### #optional()
-Allows all type assertions (not including those mentioned above) to allow undefined values. The optional flag will be applied throughout the entire assertion chain, so you can still make an assertion without if the value is present
+Allows all type assertions (not including those mentioned above) to allow undefined values. The optional flag will be applied throughout the entire assertion chain, so you can still make an assertion without the value being present.
 ```js
 assert.optional().string(undefined).matches(/[A-Z]*/); // Safe
 ```
@@ -163,6 +163,22 @@ assert.number('myVar', 10).finite(); // Safe
 assert.number('myVar', Infinity).finite() // AssertionError: myVar should be a finite number
 assert.number('myVar', -Infinity).finite() // AssertionError: myVar should be a finite number
 assert.number('myVar', NaN).finite() // AssertionError: myVar should be a finite number
+```
+
+#### #positive()
+Validates your value is a positive number. Throws an assertion error if your value is <= 0
+```js
+assert.number('myVar', 10).positive() // Safe
+assert.number('myVar', -10).positive() // AssertionError: myVar should be a positive number
+assert.number('myVar', 0).positive() // AssertionError: myVar should be a positive number
+```
+
+#### #negative()
+Validates your value is a negative number. Throws an assertion error if your value is >= 0
+```js
+assert.number('myVar', -10).negative() // Safe
+assert.number('myVar', 10).negative() // AssertionError: myVar should be a negative number
+assert.number('myVar', 0).negative() // AssertionError: myVar should be a negative number
 ```
 
 ### Boolean

@@ -251,6 +251,97 @@ describe('numberAssert', () => {
       expect(na.finite).to.throw('test should be a finite number');
     });
 
+    it('should return a numberAssert', () => {
+      const na = numberAssert('test', 0);
+      expect(na.finite()).to.be.an.instanceOf(Object);
+    });
+
+  });
+
+  describe('#integer', () => {
+
+    it('should not throw an error for an integer value', () => {
+      const na = numberAssert('test', 10);
+      expect(na.integer).to.not.throw();
+    });
+
+    it('should throw an error for a float value', () => {
+      const na = numberAssert('test', 10.1);
+      expect(na.integer).to.throw('test should be an integer');
+    });
+
+    it('should return a numberAssert', () => {
+      const na = numberAssert('test', 0);
+      expect(na.finite()).to.be.an.instanceOf(Object);
+    });
+
+  });
+
+  describe('#float', () => {
+
+    it('should not throw an error for a float value', () => {
+      const na = numberAssert('test', 10.1);
+      expect(na.float).to.not.throw();
+    });
+
+    it('should throw an error for an integer value', () => {
+      const na = numberAssert('test', 10);
+      expect(na.float).to.throw('test should be a float');
+    });
+
+    it('should return a numberAssert', () => {
+      const na = numberAssert('test', 0);
+      expect(na.finite()).to.be.an.instanceOf(Object);
+    });
+
+  });
+
+  describe('positive', () => {
+
+    it('should not throw an error for a positive number', () => {
+      const na = numberAssert('test', 10);
+      expect(na.positive).to.not.throw();
+    });
+
+    it('should throw an error for a negative number', () => {
+      const na = numberAssert('test', -10);
+      expect(na.positive).to.throw('test should be a positive number');
+    });
+
+    it('should throw an error for a zero (0) value', () => {
+      const na = numberAssert('test', 0);
+      expect(na.positive).to.throw('test should be a positive number');
+    });
+
+    it('should return an instance of numberAssert', () => {
+      const na = numberAssert('test', 10);
+      expect(na.positive()).to.be.an.instanceOf(Object);
+    });
+
+  });
+
+  describe('negative', () => {
+
+    it('should not throw an error for a negative number', () => {
+      const na = numberAssert('test', -10);
+      expect(na.negative).to.not.throw();
+    });
+
+    it('should throw an error for a positive number', () => {
+      const na = numberAssert('test', 10);
+      expect(na.negative).to.throw('test should be a negative number');
+    });
+
+    it('should throw an error for a zero (0) value', () => {
+      const na = numberAssert('test', 0);
+      expect(na.negative).to.throw('test should be a negative number');
+    });
+
+    it('should return an instance of numberAssert', () => {
+      const na = numberAssert('test', -10);
+      expect(na.negative()).to.be.an.instanceOf(Object);
+    })
+
   });
 
 });

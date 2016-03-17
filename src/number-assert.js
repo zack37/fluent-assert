@@ -111,7 +111,7 @@ export default (name, value, optional) => {
   }, emptyFunction);
 
   /**
-   * Tests if value is ina  subset of numbers
+   * Tests if value is in a subset of numbers
    * @param {Array.<Number>} values - Subset of numbers to confine value
    * @returns {NumberAssert}
    * @throws {AssertionError} - Throws error if value is not contained in values
@@ -127,12 +127,77 @@ export default (name, value, optional) => {
     return assert;
   }, emptyFunction);
 
+  /**
+   * Tests if value is a finite number
+   * @returns {NumberAssert}
+   * @throws {AssertionError} - Throws error if value is not finite or is NaN
+   */
   assert.finite = common.optional(optional, value, () => () => {
     if(isNaN(value) || !isFinite(value)) {
       common.error(value,
         `${value} to be a finite number`,
         `${name} should be a finite number`,
         'finite');
+    }
+    return assert;
+  }, emptyFunction);
+
+  /**
+   * Tests if value is an integer
+   * @returns {NumberAssert}
+   * @throws {AssertionError} - Throws error if value is not an integer
+   */
+  assert.integer = common.optional(optional, value, () => () => {
+    if(value % 1 !== 0) {
+      common.error(value,
+        `${value} to be an integer`,
+        `${name} should be an integer`,
+        'integer');
+    }
+    return assert;
+  }, emptyFunction);
+
+  /**
+   * Tests if value is a float
+   * @returns {NumberAssert}
+   * @throws {AssertionError} - Throws error if value is not a float
+   */
+  assert.float = common.optional(optional, value, () => () => {
+    if(value % 1 === 0) {
+      common.error(value,
+        `${value} to be a float`,
+        `${name} should be a float`,
+        'float');
+    }
+    return assert;
+  }, emptyFunction);
+
+  /**
+   * Tests if value is a positive number
+   * @returns {NumberAssert}
+   * @throws {AssertionError} - Throws error if value is not a positive number
+   */
+  assert.positive = common.optional(optional, value, () => () => {
+    if(value <= 0) {
+      common.error(value,
+        `${value} to be a positive number`,
+        `${name} should be a positive number`,
+        'positive');
+    }
+    return assert;
+  }, emptyFunction);
+
+  /**
+   * Tests if value is a negative number
+   * @returns {NumberAssert}
+   * @throws {AssertionError} - Throws error if value is not a negative number
+   */
+  assert.negative = common.optional(optional, value, () => () => {
+    if(value >= 0) {
+      common.error(value,
+        `${value} to be a negative number`,
+        `${name} should be a negative number`,
+        'negative');
     }
     return assert;
   }, emptyFunction);

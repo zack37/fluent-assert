@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Fluent assertions for javascript types.",
   "repository": "http://github.com/zack37/fluent-assert",
+  "engines": {
+    "node": ">=4",
+    "iojs": ">=2.5"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register test/*-spec.js",
